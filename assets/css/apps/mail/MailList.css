@@ -1,1 +1,18 @@
  /* mail list */
+
+.mail-list-ul{
+    padding-inline: 73px; 
+}
+
+ .mail-list-ul>li {
+    display: grid;
+    grid-template-columns: 200px 450px;
+    grid-template-rows: 40px;
+    align-items: center;
+    
+    border-top: 1px solid;
+}
+
+ .mail-list-ul > li > p{
+    margin: 0;
+ }
