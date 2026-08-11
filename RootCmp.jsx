@@ -7,6 +7,7 @@ import { About } from './pages/About.jsx'
 import { Home } from './pages/Home.jsx'
 import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
+import { MailPreview } from './apps/mail/pages/MailPreview.jsx'
 
 export function RootCmp() {
 
@@ -137,6 +138,7 @@ const mails = [
                 <Route path="/about" element={<About />} />
                 <Route path="/mail" element={<MailIndex mailsData={mails}/>} />
                 <Route path="/note" element={<NoteIndex />} />
+                <Route path="/mail/:id" element={<MailPreview />} />
             </Routes>
             <UserMsg />
         </section>
