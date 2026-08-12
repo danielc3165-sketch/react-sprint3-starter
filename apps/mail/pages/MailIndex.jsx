@@ -9,23 +9,36 @@ const { useState,useEffect } = React
 
 export function MailIndex({mailsData}) {
 
-    const [ mails,setMails] = useState(mailsData)
+    const [ mails,setMails] = useState()
     
+    //console.log('mails',mails)
+     
+    useEffect(()=>{
+        mailService.query()
+        .then(data=>{
+            setMails(data)
+            //console.log('data',data)
+        })
+        
+     },[])
 
-    //  useEffect(()=>{
-    //     mailService.query()
-    //     .then(data=>{
-    //         setMails(data)
-    //         console.log('data',data)
-    //     })
-    //  },[])
+     
+    function removeMail(id,ev){
+    ev.stopPropagation()
+
+    mailService.remove(id)
+    .then(()=>setMails(prev=>prev.filter(mail=>mail.id!==id)))
+    
+  }
 
      if(!mails) return
+
+    
 
     return <section className="container">
         <h1>Mail app</h1>
 
-        <MailList mails={mails}/>
+        <MailList mails={mails} removeMail={removeMail}/>
         
         </section>
 }

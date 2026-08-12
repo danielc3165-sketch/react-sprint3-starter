@@ -1,6 +1,9 @@
 const { Route, Routes } = ReactRouterDOM
 const Router = ReactRouterDOM.HashRouter
 
+import { mailService } from './apps/mail/services/mail.service.js'
+import { utilService } from './services/util.service.js'
+
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { About } from './pages/About.jsx'
@@ -129,8 +132,9 @@ const mails = [
 	}
 ]
 
-
-    return <Router>
+//utilService.saveToStorage('mails',mails)
+   
+   return <Router>
         <section className="root-cmp">
             <AppHeader />
             <Routes>

@@ -6,11 +6,18 @@
 
  .mail-list-ul>li {
     display: grid;
-    grid-template-columns: 200px 450px;
+    grid-template-columns: 200px 450px 1fr;
     grid-template-rows: 40px;
     align-items: center;
     
     border-top: 1px solid;
+}
+
+.read{
+    background-color: #f2f6fc;
+}
+.unread{
+    font-weight: bold;
 }
 
  .mail-list-ul > li > p{

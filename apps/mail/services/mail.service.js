@@ -5,6 +5,7 @@ import { storageService } from "../../../services/async-storage.service.js"
 export const mailService={
 	query,
 	get,
+	remove,
 }
 
 const MAILS_KEY = 'mails'
@@ -17,4 +18,19 @@ function query(){
 
 function get(id){
 	return storageService.get(MAILS_KEY,id)
+}
+
+function remove(id){
+	    // var newObj={
+	    // createdAt: Date.now(),
+	    // subject: utilService.makeLorem(3),
+	    // body: utilService.makeLorem(15),
+	    // isRead: false,
+	    // sentAt: 0,
+	    // removedAt: null,
+	    // from: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
+	    // to: `${utilService.makeLorem(1)}@${utilService.makeLorem(1)}.com`.split(' ').join(''),
+		// }
+
+		return storageService.remove(MAILS_KEY,id)
 }
