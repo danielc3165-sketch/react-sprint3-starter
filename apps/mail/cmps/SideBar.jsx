@@ -1,6 +1,6 @@
 const { useState,useEffect } = React
 
-export function SideBar({mails}){
+export function SideBar({mails,sendMessage,setSendMessage}){
 
     const [ count,setCount ] = useState(0)
 
@@ -19,7 +19,7 @@ export function SideBar({mails}){
 
     return <section className="side-bar-container">
 
-     <button className="side-bar-btn"><img src="assets/icons/compose.png"/></button>
+     <button className="side-bar-btn" onClick={()=>setSendMessage(true)}><img src="assets/icons/compose.png"/></button>
 
      <div className="side-bar-div">
      <a href=""><img src="assets/icons/messages.png"/><span>{count}</span></a>

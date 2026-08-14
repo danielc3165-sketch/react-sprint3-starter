@@ -12,6 +12,7 @@ const { useState,useEffect } = React
 export function MailIndex({mailsData}) {
 
     const [ mails,setMails] = useState(mailsData)
+    const [ sendMessage,setSendMessage ] = useState(true)
     
     //console.log('mails',mails)
      
@@ -44,10 +45,15 @@ export function MailIndex({mailsData}) {
 
     return <section>
 
-    <SendMessage />
+    {sendMessage && <SendMessage 
+        sendMessage={sendMessage}
+        setSendMessage={setSendMessage} />}
      
     <div className="mail-index">
-        <SideBar mails={mails}/>
+        <SideBar 
+        mails={mails} 
+        sendMessage={sendMessage}
+        setSendMessage={setSendMessage}/>
 
     <section className="container">
     

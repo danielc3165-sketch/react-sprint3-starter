@@ -1,13 +1,14 @@
-export function SendMessage(){
+export function SendMessage({sendMessage,setSendMessage}){
 
-return <section className="send-message">
+    //console.log('sendMessage',sendMessage)
 
-<div>New message</div>
-<div>To</div>
-<div>Subject</div>
-<div>Text</div>
-<div><button>send
-    </button></div>
+return <form className="send-message" onSubmit={()=>setSendMessage(prev=>!prev)}>
 
-</section>
+<div id="new-message-div">New Message <button>X</button></div>
+<div id="send-to">To <input type="text" /></div>
+<div><input type="text" placeholder="Subject" /></div>
+<textarea id="text-area" type="text"></textarea>
+<div><button id="send-btn">send</button></div>
+
+</form>
 }
