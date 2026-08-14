@@ -2,14 +2,16 @@
 import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 
+import { SideBar } from "../cmps/SideBar.jsx"
 import { MailList } from "../cmps/MailList.jsx"
+import { SendMessage } from "../cmps/SendMessage.jsx"
 
 const { useState,useEffect } = React
 
 
 export function MailIndex({mailsData}) {
 
-    const [ mails,setMails] = useState()
+    const [ mails,setMails] = useState(mailsData)
     
     //console.log('mails',mails)
      
@@ -31,15 +33,34 @@ export function MailIndex({mailsData}) {
     
   }
 
+  function changeIsRead(mail){
+    mail.isRead = true
+    mailService.update(mail)
+    .then(newMail=>console.log('newMail',newMail))
+    // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
+  }
+
      if(!mails) return
 
+    return <section>
+
+    <SendMessage />
+     
+    <div className="mail-index">
+        <SideBar mails={mails}/>
+
+    <section className="container">
     
-
-    return <section className="container">
-        <h1>Mail app</h1>
-
-        <MailList mails={mails} removeMail={removeMail}/>
+        <MailList 
+        mails={mails} 
+        setMails={setMails} 
+        removeMail={removeMail}
+        changeIsRead={changeIsRead} 
+        />
         
-        </section>
+    </section>
+    </div>
+
+    </section>
 }
 

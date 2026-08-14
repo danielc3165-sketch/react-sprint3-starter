@@ -20,4 +20,23 @@ img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    cursor: pointer;
+}
+
+button{
+    cursor: pointer;
+}
+
+@font-face {
+  font-family: 'Gmail-900';
+  src: url('../../fonts/free-fa-solid-900.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gmail-400';
+  src: url('../../fonts/free-fa-regular-400.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }

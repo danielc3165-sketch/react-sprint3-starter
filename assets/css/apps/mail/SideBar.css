@@ -1,0 +1,29 @@
+.side-bar-container {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    place-items: center;
+}
+
+.side-bar-div{
+    display: grid;
+    align-self: start;
+    gap:1rem
+}
+
+.side-bar-btn{
+    width: 56px;
+    height: 56px;
+
+    background-color: #c2e7ff;
+    border-radius: 20px;
+    border: none;
+}
+
+.side-bar-btn>img{
+   width: 30px;
+   height: 30px;
+}
+
+.side-bar-div > a{
+   height: 30px;
+}

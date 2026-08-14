@@ -6,6 +6,7 @@ export const mailService={
 	query,
 	get,
 	remove,
+	update,
 }
 
 const MAILS_KEY = 'mails'
@@ -33,4 +34,8 @@ function remove(id){
 		// }
 
 		return storageService.remove(MAILS_KEY,id)
+}
+
+function update(mail){
+	return storageService.put(MAILS_KEY,mail)
 }

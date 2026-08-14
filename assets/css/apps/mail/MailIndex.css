@@ -1,4 +1,6 @@
  /* mail index  */
 
-
- 
+ .mail-index{
+    display: grid;
+    grid-template-columns: 73px 1fr;
+ }
