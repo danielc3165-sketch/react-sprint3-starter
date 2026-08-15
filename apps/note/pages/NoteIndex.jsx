@@ -32,6 +32,21 @@ export function NoteIndex() {
     })
   }
 
+  function onDuplicateNote(note) {
+    const duplicateNote = {
+      ...note,
+      id: null,
+      createdAt: Date.now(),
+      info: {
+        ...note.info,
+      },
+    }
+
+    noteService.save(duplicateNote).then(() => {
+      loadNotes()
+    })
+  }
+
   function onDeleteNote(noteId) {
     noteService.remove(noteId).then(() => {
       loadNotes()
@@ -78,6 +93,7 @@ export function NoteIndex() {
         onEditNote={onEditNote}
         onTogglePin={onTogglePin}
         onChangeColor={onChangeColor}
+        onDuplicateNote={onDuplicateNote}
       />
     </section>
   )

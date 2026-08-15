@@ -6,6 +6,7 @@ export function NoteList({
   onEditNote,
   onTogglePin,
   onChangeColor,
+  onDuplicateNote,
 }) {
   return (
     <ul className="note-list">
@@ -17,6 +18,7 @@ export function NoteList({
             onEditNote={onEditNote}
             onTogglePin={onTogglePin}
             onChangeColor={onChangeColor}
+            onDuplicateNote={onDuplicateNote}
           />
         </li>
       ))}

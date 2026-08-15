@@ -4,6 +4,7 @@ export function NotePreview({
   onEditNote,
   onTogglePin,
   onChangeColor,
+  onDuplicateNote,
 }) {
   function getNoteContent() {
     switch (note.type) {
@@ -88,9 +89,9 @@ export function NotePreview({
 
         <button onClick={() => onDeleteNote(note.id)}>Delete</button>
 
-        <button onClick={onPin}>
-          {note.isPinned ? 'Unpin' : 'Pin'}
-        </button>
+        <button onClick={() => onDuplicateNote(note)}>Duplicate</button>
+
+        <button onClick={onPin}>{note.isPinned ? 'Unpin' : 'Pin'}</button>
 
         <button onClick={onColorChange}>Change color</button>
       </div>
