@@ -13,7 +13,7 @@ export function NoteIndex() {
 
   function loadNotes() {
     noteService.query().then((notes) => {
-      setNotes(notes)
+      setNotes(sortNotes(notes))
     })
   }
 
@@ -25,15 +25,39 @@ export function NoteIndex() {
 
   function onDeleteNote(noteId) {
     noteService.remove(noteId).then(() => {
-      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId))
+      setNotes((prevNotes) =>
+        prevNotes.filter((note) => note.id !== noteId)
+      )
     })
   }
 
   function onEditNote(updatedNote) {
+    saveUpdatedNote(updatedNote)
+  }
+
+  function onTogglePin(updatedNote) {
+    saveUpdatedNote(updatedNote)
+  }
+
+  function onChangeColor(updatedNote) {
+    saveUpdatedNote(updatedNote)
+  }
+
+  function saveUpdatedNote(updatedNote) {
     noteService.save(updatedNote).then((savedNote) => {
-      setNotes((prevNotes) =>
-        prevNotes.map((note) => (note.id === savedNote.id ? savedNote : note))
-      )
+      setNotes((prevNotes) => {
+        const updatedNotes = prevNotes.map((note) =>
+          note.id === savedNote.id ? savedNote : note
+        )
+
+        return sortNotes(updatedNotes)
+      })
+    })
+  }
+
+  function sortNotes(notes) {
+    return notes.sort((noteA, noteB) => {
+      return Number(noteB.isPinned) - Number(noteA.isPinned)
     })
   }
 
@@ -42,11 +66,15 @@ export function NoteIndex() {
   return (
     <section className="note-index container">
       <h2>Notes</h2>
+
       <NoteAdd onAddNote={onAddNote} />
+
       <NoteList
         notes={notes}
         onDeleteNote={onDeleteNote}
         onEditNote={onEditNote}
+        onTogglePin={onTogglePin}
+        onChangeColor={onChangeColor}
       />
     </section>
   )

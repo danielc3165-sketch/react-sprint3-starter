@@ -1,4 +1,10 @@
-export function NotePreview({ note, onDeleteNote, onEditNote }) {
+export function NotePreview({
+  note,
+  onDeleteNote,
+  onEditNote,
+  onTogglePin,
+  onChangeColor,
+}) {
   function getNoteContent() {
     switch (note.type) {
       case 'NoteTxt':
@@ -42,6 +48,34 @@ export function NotePreview({ note, onDeleteNote, onEditNote }) {
     onEditNote(updatedNote)
   }
 
+  function onPin() {
+    const updatedNote = {
+      ...note,
+      isPinned: !note.isPinned,
+    }
+
+    onTogglePin(updatedNote)
+  }
+
+  function onColorChange() {
+    const backgroundColor = window.prompt(
+      'Enter background color',
+      note.style.backgroundColor
+    )
+
+    if (!backgroundColor || !backgroundColor.trim()) return
+
+    const updatedNote = {
+      ...note,
+      style: {
+        ...note.style,
+        backgroundColor,
+      },
+    }
+
+    onChangeColor(updatedNote)
+  }
+
   return (
     <article
       className="note-preview"
@@ -51,7 +85,14 @@ export function NotePreview({ note, onDeleteNote, onEditNote }) {
 
       <div className="note-actions">
         {note.type === 'NoteTxt' && <button onClick={onEdit}>Edit</button>}
+
         <button onClick={() => onDeleteNote(note.id)}>Delete</button>
+
+        <button onClick={onPin}>
+          {note.isPinned ? 'Unpin' : 'Pin'}
+        </button>
+
+        <button onClick={onColorChange}>Change color</button>
       </div>
     </article>
   )
