@@ -2,32 +2,39 @@ const { useState, useEffect } = React
 
 import { noteService } from '../services/note.service.js'
 import { NoteAdd } from '../cmps/NoteAdd.jsx'
+import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 
 export function NoteIndex() {
   const [notes, setNotes] = useState(null)
+  const [filterBy, setFilterBy] = useState({
+    txt: '',
+    type: '',
+  })
 
   useEffect(() => {
     loadNotes()
-  }, [])
+  }, [filterBy])
 
   function loadNotes() {
-    noteService.query().then((notes) => {
+    noteService.query(filterBy).then((notes) => {
       setNotes(sortNotes(notes))
     })
   }
 
+  function onSetFilter(newFilterBy) {
+    setFilterBy(newFilterBy)
+  }
+
   function onAddNote(note) {
-    noteService.save(note).then((savedNote) => {
-      setNotes((prevNotes) => [...prevNotes, savedNote])
+    noteService.save(note).then(() => {
+      loadNotes()
     })
   }
 
   function onDeleteNote(noteId) {
     noteService.remove(noteId).then(() => {
-      setNotes((prevNotes) =>
-        prevNotes.filter((note) => note.id !== noteId)
-      )
+      loadNotes()
     })
   }
 
@@ -44,14 +51,8 @@ export function NoteIndex() {
   }
 
   function saveUpdatedNote(updatedNote) {
-    noteService.save(updatedNote).then((savedNote) => {
-      setNotes((prevNotes) => {
-        const updatedNotes = prevNotes.map((note) =>
-          note.id === savedNote.id ? savedNote : note
-        )
-
-        return sortNotes(updatedNotes)
-      })
+    noteService.save(updatedNote).then(() => {
+      loadNotes()
     })
   }
 
@@ -68,6 +69,8 @@ export function NoteIndex() {
       <h2>Notes</h2>
 
       <NoteAdd onAddNote={onAddNote} />
+
+      <NoteFilter onSetFilter={onSetFilter} />
 
       <NoteList
         notes={notes}
