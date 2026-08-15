@@ -2,9 +2,11 @@
 import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 
+import { MailFilter } from "../cmps/MailFilter.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { SendMessage } from "../cmps/SendMessage.jsx"
+
 
 const { useState,useEffect } = React
 
@@ -12,7 +14,8 @@ const { useState,useEffect } = React
 export function MailIndex({mailsData}) {
 
     const [ mails,setMails] = useState(mailsData)
-    const [ sendMessage,setSendMessage ] = useState(true)
+    const [ sendMessage,setSendMessage ] = useState(false)
+    const [ filter,setFilter ] = useState({text:'',onlyNew:false})
     
     //console.log('mails',mails)
      
@@ -26,7 +29,7 @@ export function MailIndex({mailsData}) {
      },[])
 
      
-    function removeMail(id,ev){
+  function removeMail(id,ev){
     ev.stopPropagation()
 
     mailService.remove(id)
@@ -50,12 +53,15 @@ export function MailIndex({mailsData}) {
         setSendMessage={setSendMessage} />}
      
     <div className="mail-index">
+
         <SideBar 
         mails={mails} 
         sendMessage={sendMessage}
         setSendMessage={setSendMessage}/>
 
     <section className="container">
+        
+        <MailFilter filter={filter} setFilter={setFilter} />
     
         <MailList 
         mails={mails} 

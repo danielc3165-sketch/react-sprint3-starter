@@ -1,0 +1,14 @@
+.search{ 
+    display: flex;
+    justify-self: center;
+
+    width: 40%;
+    height: 2em;
+    margin: 1rem;
+    padding-inline: 2em; 
+
+    background-color: #f2f6fc;
+    border:1px solid;
+    border-radius: 1em;
+    font-size: 1rem;
+}
