@@ -14,12 +14,16 @@ const USER_KEY = 'user'
 
 
 function query(filter={}){
-	console.log('Sfilter',filter)
+	//console.log('Sfilter',filter)
 	return storageService.query(MAILS_KEY)
 	.then(mails=>{
 		if(filter.text){ 
 		const regExp=new RegExp(filter.text,'i')
 		mails=mails.filter(mail=>regExp.test(mail.subject)||regExp.test(mail.body))
+		}
+        
+		if(filter.onlyNew){
+		mails=mails.filter(mail=>mail.isRead===false)
 		}
 
 		mails=mails.sort((a,b)=>b.sentAt-a.sentAt)
