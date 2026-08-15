@@ -1,1 +1,38 @@
  /* mail list */
+
+ .mail-list-ul{
+    padding: 0;
+    margin: 0;
+ }
+
+ .mail-list-ul>li {
+    display: grid;
+    grid-template-columns: 30px 200px 1fr 30px;
+    grid-template-rows: 40px;
+    align-items: center;
+    
+    border-top: 1px solid;
+    /* font-family: Gmail-900; */
+}
+
+.read{
+    background-color: #f2f6fc;
+}
+.unread{
+    font-weight: bold;
+}
+
+.mail-list-ul > li > img{
+    width: 20px;
+    height: 20px;
+}
+
+ .mail-list-ul > li > p{
+    margin: 0;
+ }
+
+ .mail-list-ul > li > button{
+    justify-self: end;
+    width: 30px;
+    height: 30px;
+ }

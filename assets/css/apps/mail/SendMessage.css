@@ -1,0 +1,48 @@
+.send-message{
+  position:absolute ;
+  display: grid;
+  grid-template-rows: repeat(3,40px) 280px 60px;
+  bottom: 0.5em;
+  right: 0.5em;
+
+  width: 400px;
+
+  background-color: #fff;
+}
+
+.send-message>div,textarea {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 0.5em 1em;
+    border: 1px solid;
+}
+
+.send-message>div>input{
+    width: 100%;
+}
+
+#new-message-div{
+    background-color:#f2f6fc;
+}
+
+#new-message-div>button{
+    background-color: #f2f6fc;
+    border: none;
+    padding-right: 0;
+}
+
+#send-to{
+    gap: 0.5em;
+}
+
+#send-btn{
+    width: 100px;
+    height: 40px;
+    
+    color: #fff;
+    background-color: #0b57d0;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.25rem;
+}
