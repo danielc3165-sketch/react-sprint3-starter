@@ -7,7 +7,7 @@
 
  .mail-list-ul>li {
     display: grid;
-    grid-template-columns: 30px 200px 1fr 30px;
+    grid-template-columns: 30px 1fr 2fr 1fr 30px;
     grid-template-rows: 40px;
     align-items: center;
     
@@ -30,6 +30,12 @@
  .mail-list-ul > li > p{
     margin: 0;
  }
+
+#date {
+    justify-self: end;
+    width: fit-content;
+    padding-right: 1em;
+}
 
  .mail-list-ul > li > button{
     justify-self: end;

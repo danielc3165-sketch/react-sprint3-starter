@@ -17,16 +17,16 @@ export function MailIndex({mailsData}) {
     const [ sendMessage,setSendMessage ] = useState(false)
     const [ filter,setFilter ] = useState({text:'',onlyNew:false})
     
-    //console.log('mails',mails)
+    //console.log('filter',filter)
      
     useEffect(()=>{
-        mailService.query()
+        mailService.query(filter)
         .then(data=>{
             setMails(data)
             //console.log('data',data)
         })
         
-     },[])
+     },[filter])
 
      
   function removeMail(id,ev){
