@@ -1,0 +1,23 @@
+
+.filter {
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+}
+
+.filter-div{
+    align-content: center;
+}
+
+.search {
+    justify-self: center;
+    
+    height: 2em;
+    width: 100%;
+    margin: 1em;
+    padding-inline: 2em;
+    
+    background-color: #f2f6fc;
+    border: 1px solid;
+    border-radius: 1em;
+    font-size: 1rem;
+}
