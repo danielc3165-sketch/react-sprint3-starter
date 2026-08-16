@@ -22,13 +22,13 @@ export function SideBar({mails,sendMessage,setSendMessage}){
      <button className="side-bar-btn" onClick={()=>setSendMessage(true)}><img src="assets/icons/compose.png"/></button>
 
      <div className="side-bar-div">
-     <a href=""><img src="assets/icons/messages.png"/><span>{count}</span></a>
-     <a href=""><img src="assets/icons/star-off.png"/></a>
-     <a href=""><img src="assets/icons/send.png"/></a>
-     <a href=""><img src="assets/icons/file.png"/></a>
-     <a href=""><img src="assets/icons/trash.png"/></a>
+     <button><img src="assets/icons/messages.png"/><span>{count}</span></button>
+     <button><img src="assets/icons/star-off.png"/></button>
+     <button><img src="assets/icons/send.png"/></button>
+     <button><img src="assets/icons/file.png"/></button>
+     <button><img src="assets/icons/trash.png"/></button>
      </div>
-    
+button
     </section>
 
 
