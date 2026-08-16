@@ -3,8 +3,12 @@ import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 
 import { MailFilter } from "../cmps/MailFilter.jsx"
-import { SideBar } from "../cmps/SideBar.jsx"
 import { MailList } from "../cmps/MailList.jsx"
+import { MailStars } from "../cmps/MailStars.jsx"
+import { MailSent } from "../cmps/MailSent.jsx"
+import { MailDraft } from "../cmps/MailDraft.jsx"
+import { MailTrash } from "../cmps/MailTrash.jsx"
+import { SideBar } from "../cmps/SideBar.jsx"
 import { SendMessage } from "../cmps/SendMessage.jsx"
 
 
@@ -16,8 +20,9 @@ export function MailIndex({mailsData}) {
     const [ mails,setMails] = useState(mailsData)
     const [ sendMessage,setSendMessage ] = useState(false)
     const [ filter,setFilter ] = useState({text:'',onlyNew:false})
+    const [ cmpType,setCmpType ] = useState('MailList')
     
-    //console.log('filter',filter)
+    console.log('cmpType',cmpType)
      
     useEffect(()=>{
         mailService.query(filter)
@@ -57,13 +62,15 @@ export function MailIndex({mailsData}) {
         <SideBar 
         mails={mails} 
         sendMessage={sendMessage}
-        setSendMessage={setSendMessage}/>
+        setSendMessage={setSendMessage}
+        setCmpType={setCmpType}/>
 
     <section className="container">
         
         <MailFilter filter={filter} setFilter={setFilter} />
     
-        <MailList 
+        <DynamicCmp 
+        cmpType={cmpType}
         mails={mails} 
         setMails={setMails} 
         removeMail={removeMail}
@@ -74,5 +81,17 @@ export function MailIndex({mailsData}) {
     </div>
 
     </section>
+}
+
+function DynamicCmp(props) {
+    const cmpMap = {
+    MailList: <MailList { ...props } />,
+    MailStars: <MailStars { ...props } />,
+    MailSent: <MailSent { ...props } />,
+    MailDraft: <MailDraft { ...props } />,
+    MailTrash: <MailTrash { ...props } />
+}
+    //console.log('props',props.cmpType)
+    return cmpMap[props.cmpType]
 }
 
