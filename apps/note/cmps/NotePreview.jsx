@@ -19,6 +19,18 @@ export function NotePreview({
           </div>
         )
 
+      case 'NoteVideo':
+        return (
+          <div>
+            <h3>{note.info.title}</h3>
+            <iframe
+              src={note.info.url}
+              title={note.info.title}
+              allowFullScreen
+            ></iframe>
+          </div>
+        )
+
       case 'NoteTodos':
         return (
           <div>
