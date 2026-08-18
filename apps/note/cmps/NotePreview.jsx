@@ -42,6 +42,9 @@ export function NotePreview({
             </ul>
           </div>
         )
+
+      default:
+        return <p>Unknown note type</p>
     }
   }
 
@@ -70,19 +73,12 @@ export function NotePreview({
     onTogglePin(updatedNote)
   }
 
-  function onColorChange() {
-    const backgroundColor = window.prompt(
-      'Enter background color',
-      note.style.backgroundColor
-    )
-
-    if (!backgroundColor || !backgroundColor.trim()) return
-
+  function onColorChange({ target }) {
     const updatedNote = {
       ...note,
       style: {
         ...note.style,
-        backgroundColor,
+        backgroundColor: target.value,
       },
     }
 
@@ -105,7 +101,14 @@ export function NotePreview({
 
         <button onClick={onPin}>{note.isPinned ? 'Unpin' : 'Pin'}</button>
 
-        <button onClick={onColorChange}>Change color</button>
+        <label className="color-button">
+          Change color
+          <input
+            type="color"
+            value={note.style.backgroundColor}
+            onChange={onColorChange}
+          />
+        </label>
       </div>
     </article>
   )

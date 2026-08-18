@@ -1,1 +1,59 @@
- /* note index */
+
+.note-index {
+  padding: 20px;
+
+
+  font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+}
+
+.note-index h2 {
+  text-align: center;
+  margin-block-end: 20px;
+}
+
+.note-preview {
+  font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+}
+
+.note-add,
+.note-filter {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+  margin-block-end: 20px;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+}
+
+.note-add input,
+.note-filter input,
+.note-filter select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.note-add input,
+.note-filter input {
+  flex: 1;
+}
+
+.note-add button,
+.note-filter button {
+  background-color: #2525257a;
+  color: white;
+
+  font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.note-add button:hover,
+.note-filter button:hover {
+  background-color: #555;
+}
