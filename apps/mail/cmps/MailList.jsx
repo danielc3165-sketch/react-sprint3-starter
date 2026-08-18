@@ -13,8 +13,20 @@ export function MailList({mails,setMails,removeMail,changeIsRead}) {
   //   //console.log(mailsToEdit)
   // },[mailsToEdit])
 
- 
+ function renderDate(mail){
+    const timestamp = mail.sentAt || mail.createdAt
+    if (!timestamp) return 'No date'
 
+    const date = new Date(Number(timestamp))
+    if (isNaN(date.getTime())) return 'No date'
+
+    return date.toLocaleDateString(undefined, {
+      month: 'numeric',
+      day: 'numeric',
+      year: 'numeric',
+    })
+ }
+ 
   if(!mails) return
 
   return <div>
@@ -27,6 +39,7 @@ export function MailList({mails,setMails,removeMail,changeIsRead}) {
        <img src="assets/icons/star-off.png" />
        <p>{mail.subject}</p>
        <p>{mail.body}</p>
+       <span id="date">{renderDate(mail)}</span>
        <button onClick={(event)=>removeMail(mail.id,event)}>x</button>
 
 
