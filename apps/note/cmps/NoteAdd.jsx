@@ -48,7 +48,27 @@ export function NoteAdd({ onAddNote }) {
 
     onAddNote(note)
   }
+  function onAddImage() {
+    const url = window.prompt('Enter image URL')
+    const title = window.prompt('Enter image title')
 
+    if (!url || !url.trim()) return
+
+    const note = {
+      type: 'NoteImg',
+      isPinned: false,
+      createdAt: Date.now(),
+      style: {
+        backgroundColor: '#d7aefb',
+      },
+      info: {
+        title: title || 'My image',
+        url,
+      },
+    }
+
+    onAddNote(note)
+  }
   return (
     <form className="note-add" onSubmit={onSubmit}>
       <input
@@ -63,6 +83,9 @@ export function NoteAdd({ onAddNote }) {
 
       <button type="button" onClick={onAddVideo}>
         Add video
+      </button>
+      <button type="button" onClick={onAddImage}>
+        Add image
       </button>
     </form>
   )
