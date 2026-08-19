@@ -12,15 +12,16 @@ export const noteService = {
 
 const gNotes = [
   {
-    id: 'n101',
-    type: 'NoteTxt',
-    isPinned: true,
-    createdAt: 1112222,
+    id: 'n105',
+    type: 'NoteVideo',
+    isPinned: false,
+    createdAt: 1112226,
     style: {
-      backgroundColor: '#f7d154',
+      backgroundColor: '#f8bbd0',
     },
     info: {
-      txt: 'Remember to buy milk',
+      title: 'React tutorial',
+      url: 'https://www.youtube.com/embed/dGcsHMXbSOA',
     },
   },
   {

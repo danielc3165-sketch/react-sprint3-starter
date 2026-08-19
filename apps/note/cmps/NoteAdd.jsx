@@ -1,43 +1,69 @@
 const { useState } = React
 
 export function NoteAdd({ onAddNote }) {
-    const [txt, setTxt] = useState('')
+  const [txt, setTxt] = useState('')
 
-    function handleChange({ target }) {
-        setTxt(target.value)
+  function handleChange({ target }) {
+    setTxt(target.value)
+  }
+
+  function onSubmit(ev) {
+    ev.preventDefault()
+
+    if (!txt) return
+
+    const note = {
+      type: 'NoteTxt',
+      isPinned: false,
+      createdAt: Date.now(),
+      style: {
+        backgroundColor: '#ffffff',
+      },
+      info: {
+        txt,
+      },
     }
 
-    function onSubmit(ev) {
-        ev.preventDefault()
+    onAddNote(note)
+    setTxt('')
+  }
 
-        if (!txt) return
+  function onAddVideo() {
+    const url = window.prompt('Enter video URL')
 
-        const note = {
-            type: 'NoteTxt',
-            isPinned: false,
-            createdAt: Date.now(),
-            style: {
-                backgroundColor: '#ffffff',
-            },
-            info: {
-                txt,
-            },
-        }
+    if (!url || !url.trim()) return
 
-        onAddNote(note)
-        setTxt('')
+    const note = {
+      type: 'NoteVideo',
+      isPinned: false,
+      createdAt: Date.now(),
+      style: {
+        backgroundColor: '#f8bbd0',
+      },
+      info: {
+        title: 'My video',
+        url,
+      },
     }
 
-    return (
-        <form className="note-add" onSubmit={onSubmit}>
-            <input
-                type="text"
-                name="txt"
-                value={txt}
-                onChange={handleChange}
-                placeholder="Take a note..."
-            />
-            <button>Add note</button>
-        </form>
-    )
+    onAddNote(note)
+  }
+
+  return (
+    <form className="note-add" onSubmit={onSubmit}>
+      <input
+        type="text"
+        name="txt"
+        value={txt}
+        onChange={handleChange}
+        placeholder="Take a note..."
+      />
+
+      <button>Add note</button>
+
+      <button type="button" onClick={onAddVideo}>
+        Add video
+      </button>
+    </form>
+  )
 }
