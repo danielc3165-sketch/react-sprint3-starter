@@ -31,6 +31,7 @@ export function MailFilter({filter,setFilter}){
 />
 <span>Show unread only</span>
 </div>
+<img src="assets/icons/loupe.png" />
     <input className="search" type="text" name="text" onChange={handelFilter} placeholder="Search..." />
 
     </section>

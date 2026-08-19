@@ -1,13 +1,14 @@
 .side-bar-container {
     display: grid;
-    grid-template-rows: 100px 1fr;
+    grid-template-rows: 64px 1fr;
+    gap: 0.5rem;
     place-items: center;
+    margin-top: 2rem;
 }
 
 .side-bar-div{
     display: grid;
     align-self: start;
-    gap:1rem
 }
 
 .side-bar-btn{
@@ -19,11 +20,28 @@
     border: none;
 }
 
-.side-bar-btn>img{
-   width: 30px;
-   height: 30px;
+.side-bar-btn:hover{
+    box-shadow:0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15)
 }
 
-.side-bar-div > a{
+.side-bar-btn>img{
+   width: 25px;
+   height: 25px;
+}
+
+.side-bar-div > button{
    height: 30px;
+   border:none;
+   background-color: #fff;
+}
+
+.side-bar-div > button:hover{
+   background-color: buttonface;
+   border-radius: 50%;
+}
+
+
+.side-bar-div > button > img{
+    width: 1rem;
+    height: 1rem;
 }
