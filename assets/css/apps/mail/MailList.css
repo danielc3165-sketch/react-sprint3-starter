@@ -7,7 +7,7 @@
 
  .mail-list-ul>li {
     display: grid;
-    grid-template-columns: 40px 1fr 2fr 1fr 30px;
+    grid-template-columns: 40px 200px 2fr 150px 30px;
     grid-template-rows: 40px;
     align-items: center;
     
@@ -26,9 +26,15 @@ box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
 }
 .unread{
     font-weight: bold;
+    background-color: #fff;
 }
 
-.mail-list-ul > li > img{
+.mail-list-ul > li > button{
+    border: none;
+
+}
+
+.mail-list-ul > li  img{
     justify-self: center;
     width: 0.75rem;
     height: 0.75rem;
@@ -42,10 +48,15 @@ box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
     margin: 0;
  }
 
-#date {
+.mail-list-li-subject{
+    padding-right: 2em;
+}
+
+.date {
     justify-self: end;
     width: fit-content;
     padding-right: 1em;
+    margin-left: 1rem;
 }
 
  .mail-list-ul > li > button{

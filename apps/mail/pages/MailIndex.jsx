@@ -19,10 +19,12 @@ export function MailIndex({mailsData}) {
 
     const [ mails,setMails] = useState(mailsData)
     const [ sendMessage,setSendMessage ] = useState(false)
-    const [ filter,setFilter ] = useState({text:'',onlyNew:false})
+    const [ mssInfo, setMssInfo ] = useState({})
+    
+    const [ filter,setFilter ] = useState({text:'',onlyNew:false,status:'MailList'})
     const [ cmpType,setCmpType ] = useState('MailList')
     
-    console.log('cmpType',cmpType)
+    //console.log('filter',filter)
      
     useEffect(()=>{
         mailService.query(filter)
@@ -33,8 +35,12 @@ export function MailIndex({mailsData}) {
         
      },[filter])
 
-     
-  function removeMail(id,ev){
+    //  useEffect(()=>{
+    //     //sendMss()
+    //         //console.log('data',data) 
+    //  },[mssInfo])
+  
+    function removeMail(id,ev){
     ev.stopPropagation()
 
     mailService.remove(id)
@@ -49,13 +55,24 @@ export function MailIndex({mailsData}) {
     // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
   }
 
-     if(!mails) return
+   function sendMss(){
+      mailService.send(mssInfo)
+      .then(newMss=>{
+        setMails(prev=>prev.push(newMss))
+        //console.log('newMss',newMss)
+    })
+   }
 
+     if(!mails) return
+     //console.log('mails',mails)
     return <section>
 
     {sendMessage && <SendMessage 
         sendMessage={sendMessage}
-        setSendMessage={setSendMessage} />}
+        setSendMessage={setSendMessage}
+        setMssInfo={setMssInfo}
+        sendMss={sendMss}/>}
+         
      
     <div className="mail-index">
 
@@ -63,15 +80,17 @@ export function MailIndex({mailsData}) {
         mails={mails} 
         sendMessage={sendMessage}
         setSendMessage={setSendMessage}
-        setCmpType={setCmpType}/>
+        setCmpType={setCmpType}
+        filter={filter}
+        setFilter={setFilter}/>
 
     <section className="container">
         
         <MailFilter filter={filter} setFilter={setFilter} />
     
         <DynamicCmp 
-        cmpType={cmpType}
         mails={mails} 
+        cmpType={cmpType}
         setMails={setMails} 
         removeMail={removeMail}
         changeIsRead={changeIsRead} 

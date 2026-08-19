@@ -2,16 +2,17 @@
 .filter {
     display: grid;
     grid-template-columns: 1fr 66px 40% 30%;
+    align-items: center;
 }
 
-.filter>img{
+.filter img{
     align-self: center;
     width: 25px;
     height: 25px;
 }
 
-.filter-div{
-    align-content: center;
+.menu-img{
+    display: none;
 }
 
 .search {
@@ -26,4 +27,8 @@
     border: 1px solid;
     border-radius: 1em;
     font-size: 1rem;
+}
+
+.checkbox{
+    display: none;
 }

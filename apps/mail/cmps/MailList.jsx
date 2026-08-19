@@ -4,7 +4,7 @@ const { useNavigate } = ReactRouterDOM
 
 export function MailList({mails,setMails,removeMail,changeIsRead}) {
     
-  // const [mailsToEdit,setMailsToEdit] = useState(mails)
+  //const [mailsToEdit,setMailsToEdit] = useState(mails)
 
   const navigate = useNavigate()
 
@@ -26,6 +26,13 @@ export function MailList({mails,setMails,removeMail,changeIsRead}) {
       year: 'numeric',
     })
  }
+
+ function changeIsStared(ev){
+  ev.stopPropagation()
+  console.log(ev.target.src)
+  if(ev.target.src==='http://127.0.0.1:5500/assets/icons/star-off.png') ev.target.src='assets/icons/star-on.png'
+  else ev.target.src='assets/icons/star-off.png'
+ }
  
   if(!mails) return
 
@@ -36,11 +43,11 @@ export function MailList({mails,setMails,removeMail,changeIsRead}) {
       {mails.map(mail=><li key={mail.id} 
       className={mail.isRead ? 'read' : 'unread'}
       onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
-       <img src="assets/icons/star-off.png" />
-       <p>{mail.subject}</p>
+       <img onClick={changeIsStared} src="assets/icons/star-off.png" />
+       <p className="mail-list-li-subject">{mail.subject}</p>
        <p>{mail.body}</p>
-       <span id="date">{renderDate(mail)}</span>
-       <button onClick={(event)=>removeMail(mail.id,event)}>x</button>
+       <span className="date">{renderDate(mail)}</span>
+       <button className={mail.isRead ? 'read' : 'unread'} onClick={(event)=>removeMail(mail.id,event)}><img src="assets/icons/trash.png"/></button>
 
 
       </li>)}

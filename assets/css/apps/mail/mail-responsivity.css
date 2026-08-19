@@ -1,0 +1,32 @@
+@media (width<850px){
+
+.mail-index{
+    grid-template-columns: 1fr;
+}
+
+.side-bar-container{
+ display: none;
+}   
+
+.menu-img{display: block;}
+}
+
+@media (width<700px){
+.mail-list-ul>li{
+    grid-template-columns: 40px 1fr 90px 20px
+}
+
+.mail-list-ul > li > p{
+    grid-column: 2/3;
+    padding-inline: 1em;
+}
+
+.filter{
+    grid-template-columns: 1fr 40% 30%;
+}
+
+.search-img{
+    display: none;
+}
+
+}

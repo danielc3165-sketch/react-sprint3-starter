@@ -1,3 +1,52 @@
-export function MailSent(){
-    return <h2>Mail Sent</h2>
+const { useState,useEffect } = React
+const { useNavigate } = ReactRouterDOM
+
+
+export function MailSent({mails,setMails,removeMail,changeIsRead}){
+     const navigate = useNavigate()
+
+
+ function renderDate(mail){
+    const timestamp = mail.sentAt || mail.createdAt
+    if (!timestamp) return 'No date'
+
+    const date = new Date(Number(timestamp))
+    if (isNaN(date.getTime())) return 'No date'
+
+    return date.toLocaleDateString(undefined, {
+      month: 'numeric',
+      day: 'numeric',
+      year: 'numeric',
+    })
+ }
+
+ function changeIsStared(ev){
+  ev.stopPropagation()
+  console.log(ev.target.src)
+  if(ev.target.src==='http://127.0.0.1:5500/assets/icons/star-off.png') ev.target.src='assets/icons/star-on.png'
+  else ev.target.src='assets/icons/star-off.png'
+ }
+ 
+ 
+  if(!mails) return
+
+  return <div>
+
+    <ul className="mail-list-ul">
+      
+      {mails.map(mail=><li key={mail.id} 
+      className={mail.isRead ? 'read' : 'unread'}
+      onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
+       <img onClick={changeIsStared} src="assets/icons/star-off.png" />
+       <p className="mail-list-li-subject">{mail.subject}</p>
+       <p>{mail.body}</p>
+       <span className="date">{renderDate(mail)}</span>
+       <button className={mail.isRead ? 'read' : 'unread'} onClick={(event)=>removeMail(mail.id,event)}><img src="assets/icons/trash.png"></img></button>
+
+
+      </li>)}
+
+    </ul>
+
+  </div>
 }
