@@ -41,7 +41,7 @@
     width:fit-content;
     height: 56px;
 
-    background-color: #c2e7ff;
+    background-color: var(--bg2);
     border-radius: 20px;
     border: none;
 }
@@ -74,17 +74,17 @@
 }
 
 .is-blue{
-    background-color:#d3e3fd;
+    background-color:var(--bg3);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
 .is-blue:hover{
-   background-color:#d3e3fd;
+   background-color:var(--bg3);
 }
 
 .is-white{
-    background-color: #fff;
+    background-color: var(--withe);
 }
 
 .is-white:hover{

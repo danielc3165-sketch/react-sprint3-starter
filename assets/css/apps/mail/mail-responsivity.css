@@ -36,7 +36,8 @@ margin-bottom: 1em;
 
 @media (width<700px){
 .mail-list-ul>li{
-    grid-template-columns: 40px 1fr 90px 20px
+    grid-template-columns: 40px 1fr 90px 20px;
+    padding-bottom: 0.5em;
 }
 
 .mail-list-ul > li > p{

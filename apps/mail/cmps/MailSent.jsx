@@ -41,7 +41,9 @@ export function MailSent({mails,setMails,removeMail,changeIsRead}){
        <p className="mail-list-li-subject">{mail.subject}</p>
        <p>{mail.body}</p>
        <span className="date">{renderDate(mail)}</span>
-       <button className={mail.isRead ? 'read' : 'unread'} onClick={(event)=>removeMail(mail.id,event)}><img src="assets/icons/trash.png"></img></button>
+       <button className={mail.isRead ? 'read' : 'unread'} onClick={(event)=>removeMail(mail.id,event)}>
+        <img className="trash-img" src="assets/icons/trash.png"></img>
+       </button>
 
 
       </li>)}

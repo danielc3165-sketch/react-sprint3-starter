@@ -11,6 +11,7 @@ export function MailFilter({filter,setFilter,onMenu}){
 
     useEffect(()=>{
         setFilter(filterToEdit)
+         onEmailImg()
     },[filterToEdit])
 
     function handelFilter({target}){
@@ -23,9 +24,14 @@ export function MailFilter({filter,setFilter,onMenu}){
         const {checked,name} = target
         setFilterToEdit(prev=>({...prev,[name]:checked}))  
         }
-        console.log(img.current.src)
-        if(filterToEdit.onlyNew) img.current.src="assets/icons/mark.png"
-        else img.current.src="assets/icons/email.png"
+        
+        onEmailImg()
+        
+    }
+
+    function onEmailImg(){
+        if(filterToEdit.onlyNew) img.current.src="assets/icons/email.png"
+        else img.current.src="assets/icons/mark.png"
     }
 
 
@@ -38,7 +44,7 @@ return <section className="filter">
 
 <div className="filter-div">
     <input className="checkbox" type="checkbox" id="checkbox" name="onlyNew" onChange={handelFilter}/>
-    <label htmlFor="checkbox"><img ref={img} src="assets/icons/email.png"/></label>
+    <label htmlFor="checkbox"><img className="email-img" ref={img} src="assets/icons/email.png"/></label>
 </div>
     </section>
 }
