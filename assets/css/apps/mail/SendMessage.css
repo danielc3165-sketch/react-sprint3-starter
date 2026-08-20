@@ -8,6 +8,7 @@
   width: 400px;
 
   background-color: #fff;
+  z-index: 2;
 }
 
 .send-message>div,textarea {

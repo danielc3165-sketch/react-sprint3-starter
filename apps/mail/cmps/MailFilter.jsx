@@ -1,10 +1,13 @@
 const { useState,useEffect,useRef } = React
 
-export function MailFilter({filter,setFilter}){
+export function MailFilter({filter,setFilter,onMenu}){
     
     const [ filterToEdit,setFilterToEdit] = useState(filter)
 
+    console.log(filterToEdit)
+
     const img=useRef()
+    
 
     useEffect(()=>{
         setFilter(filterToEdit)
@@ -21,13 +24,14 @@ export function MailFilter({filter,setFilter}){
         setFilterToEdit(prev=>({...prev,[name]:checked}))  
         }
         console.log(img.current.src)
-        if(img.current.src==='http://127.0.0.1:5500/assets/icons/email.png') img.current.src="assets/icons/mark.png"
+        if(filterToEdit.onlyNew) img.current.src="assets/icons/mark.png"
         else img.current.src="assets/icons/email.png"
-         }
+    }
+
 
 return <section className="filter">
     
-<div><img className="menu-img" src="assets/icons/menu.png"/></div>
+<div><img className="menu-img" onClick={onMenu} src="assets/icons/menu.png"/></div>
 
 <img className="search-img" src="assets/icons/loupe.png" />
 <input className="search" type="text" name="text" onChange={handelFilter} placeholder="Search..." />

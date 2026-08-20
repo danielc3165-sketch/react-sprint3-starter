@@ -1,6 +1,7 @@
 
 import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
+import { showSuccessMsg } from '../../../services/event-bus.service.js'
 
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
@@ -10,7 +11,7 @@ import { MailDraft } from "../cmps/MailDraft.jsx"
 import { MailTrash } from "../cmps/MailTrash.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
 import { SendMessage } from "../cmps/SendMessage.jsx"
-
+import { UserMsg } from "../../../cmps/UserMsg.jsx"
 
 const { useState,useEffect } = React
 
@@ -18,28 +19,23 @@ const { useState,useEffect } = React
 export function MailIndex({mailsData}) {
 
     const [ mails,setMails] = useState(mailsData)
+    
     const [ sendMessage,setSendMessage ] = useState(false)
     const [ mssInfo, setMssInfo ] = useState({})
+    const [ userMsg,setUserMsg ] = useState(true)
     
     const [ filter,setFilter ] = useState({text:'',onlyNew:false,status:'MailList'})
     const [ cmpType,setCmpType ] = useState('MailList')
-    
-    //console.log('filter',filter)
+
+    const [isClose,setIsClose] = useState(true)
+    //console.log('sideBar',sideBar)
      
     useEffect(()=>{
-        mailService.query(filter)
-        .then(data=>{
-            setMails(data)
-            //console.log('data',data)
-        })
+        
+        loadMail()
         
      },[filter])
 
-    //  useEffect(()=>{
-    //     //sendMss()
-    //         //console.log('data',data) 
-    //  },[mssInfo])
-  
     function removeMail(id,ev){
     ev.stopPropagation()
 
@@ -55,13 +51,26 @@ export function MailIndex({mailsData}) {
     // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
   }
 
+function loadMail(){
+    mailService.query(filter)
+        .then(data=>{
+            setMails(data)
+        })
+}
+
    function sendMss(){
+      console.log('O.K')
       mailService.send(mssInfo)
-      .then(newMss=>{
-        setMails(prev=>prev.push(newMss))
+      .then(()=>loadMail())
+      .then(()=>{
+        showSuccessMsg('Your message sent')
         //console.log('newMss',newMss)
     })
    }
+
+   function onMenu(){
+       setIsClose(false)
+    }
 
      if(!mails) return
      //console.log('mails',mails)
@@ -77,16 +86,19 @@ export function MailIndex({mailsData}) {
     <div className="mail-index">
 
         <SideBar 
+
         mails={mails} 
         sendMessage={sendMessage}
         setSendMessage={setSendMessage}
         setCmpType={setCmpType}
         filter={filter}
-        setFilter={setFilter}/>
+        setFilter={setFilter}
+        isClose={isClose}
+        setIsClose={setIsClose}/>
 
     <section className="container">
         
-        <MailFilter filter={filter} setFilter={setFilter} />
+        <MailFilter filter={filter} setFilter={setFilter} onMenu={onMenu}/>
     
         <DynamicCmp 
         mails={mails} 
@@ -95,6 +107,8 @@ export function MailIndex({mailsData}) {
         removeMail={removeMail}
         changeIsRead={changeIsRead} 
         />
+
+        {userMsg && <UserMsg />}
         
     </section>
     </div>

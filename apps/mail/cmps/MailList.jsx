@@ -33,6 +33,8 @@ export function MailList({mails,setMails,removeMail,changeIsRead}) {
   if(ev.target.src==='http://127.0.0.1:5500/assets/icons/star-off.png') ev.target.src='assets/icons/star-on.png'
   else ev.target.src='assets/icons/star-off.png'
  }
+
+ 
  
   if(!mails) return
 
@@ -40,7 +42,7 @@ export function MailList({mails,setMails,removeMail,changeIsRead}) {
 
     <ul className="mail-list-ul">
       
-      {mails.map(mail=><li key={mail.id} 
+      {(mails && mails.length>0)&&mails.map(mail=><li key={mail.id} 
       className={mail.isRead ? 'read' : 'unread'}
       onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
        <img onClick={changeIsStared} src="assets/icons/star-off.png" />

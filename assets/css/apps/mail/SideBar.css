@@ -1,17 +1,30 @@
 .side-bar-container {
+    position: relative;
     display: grid;
     grid-template-rows: 64px max-content 1fr;
     gap: 0.5rem;
     place-items: center;
 
     width: 150px;
-    margin-top: 2rem;
+    padding-top: 2rem;
+    z-index: 2;
 }
 
-/* .side-bar-container:hover{
-    width: 256px;
-    place-items: start;
-} */
+.close-side-bar{
+    position: absolute;
+    display: none;
+    top:0;
+    left:0;
+
+    padding: 0.5em;
+
+    background-color: #fff;
+    border: none;
+}
+
+.close{
+    display: none;
+}
 
 .side-bar-div{
     display: grid;
@@ -23,6 +36,7 @@
     align-items: center;
     gap: 1em;
     
+    margin-bottom:1em;
     padding-inline: 1em;
     width:fit-content;
     height: 56px;
@@ -51,17 +65,30 @@
    padding-right: 2em;
 
    border:none;
-   background-color: #fff;
-}
-
-.side-bar-div > button:hover{
-   background-color: buttonface;
-   border-top-right-radius: 20px;
-   border-bottom-right-radius: 20px;
 }
 
 
 .side-bar-div > button > img{
     width: 1rem;
     height: 1rem;
+}
+
+.is-blue{
+    background-color:#d3e3fd;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.is-blue:hover{
+   background-color:#d3e3fd;
+}
+
+.is-white{
+    background-color: #fff;
+}
+
+.is-white:hover{
+background-color: buttonface;
+   border-top-right-radius: 20px;
+   border-bottom-right-radius: 20px;
 }
