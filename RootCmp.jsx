@@ -26,7 +26,7 @@ const mails = [
 	    subject: 'Miss you!',
 	    body: 'Would love to catch up sometimes',
 	    isRead: false,
-	    sentAt: 1551133930594,
+	    sentAt: null,
 	    removedAt: null,
 	    from: 'momo@momo.com',
 	    to: 'user@appsus.com'
@@ -48,7 +48,7 @@ const mails = [
 		subject: 'Sale this weekend',
 		body: 'Don\'t miss our weekend sale — up to 50% off!',
 		isRead: false,
-		sentAt: 1663133930594,
+		sentAt: null,
 		removedAt: null,
 		from: 'store@shop.com',
 		to: 'user@appsus.com'
@@ -81,7 +81,7 @@ const mails = [
 		subject: 'Flight Confirmation',
 		body: 'Your flight is confirmed. See details inside.',
 		isRead: true,
-		sentAt: 1696133930594,
+		sentAt: null,
 		removedAt: null,
 		from: 'travel@airline.com',
 		to: 'user@appsus.com'
@@ -103,7 +103,7 @@ const mails = [
 		subject: 'Password Reset',
 		body: 'Click here to reset your password for your account.',
 		isRead: true,
-		sentAt: 1718133930594,
+		sentAt: null,
 		removedAt: null,
 		from: 'security@service.com',
 		to: 'user@appsus.com'

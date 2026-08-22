@@ -1,11 +1,22 @@
 
 .filter {
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 1fr 35px 40% 30%;
+    align-items: center;
 }
 
-.filter-div{
-    align-content: center;
+.filter img{
+    align-self: center;
+    width: 25px;
+    height: 25px;
+}
+
+.menu-img{
+    display: none;
+}
+
+.menu-img:hover{
+   scale: 1.1;
 }
 
 .search {
@@ -16,8 +27,24 @@
     margin: 1em;
     padding-inline: 2em;
     
-    background-color: #f2f6fc;
+    background-color: var(--bg4);
     border: 1px solid;
     border-radius: 1em;
     font-size: 1rem;
+}
+
+.email-img{
+    align-self: center;
+    margin-left: -32px;
+    margin-top: 4px;
+    width: 25px;
+    height: 25px;
+}
+
+.email-img:hover{
+    scale: 1.1;
+}
+
+.checkbox{
+    display: none;
 }

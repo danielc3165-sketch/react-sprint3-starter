@@ -1,11 +1,17 @@
-const { useState,useEffect } = React
+const { useState,useEffect,useRef } = React
 
-export function MailFilter({filter,setFilter}){
+export function MailFilter({filter,setFilter,onMenu}){
     
     const [ filterToEdit,setFilterToEdit] = useState(filter)
 
+    console.log(filterToEdit)
+
+    const img=useRef()
+    
+
     useEffect(()=>{
         setFilter(filterToEdit)
+         onEmailImg()
     },[filterToEdit])
 
     function handelFilter({target}){
@@ -18,20 +24,27 @@ export function MailFilter({filter,setFilter}){
         const {checked,name} = target
         setFilterToEdit(prev=>({...prev,[name]:checked}))  
         }
-         }
+        
+        onEmailImg()
+        
+    }
 
-    return <section className="filter">
+    function onEmailImg(){
+        if(filterToEdit.onlyNew) img.current.src="assets/icons/email.png"
+        else img.current.src="assets/icons/mark.png"
+    }
+
+
+return <section className="filter">
     
-<div className="filter-div">
-<input
-    type="checkbox"
-    name="onlyNew"
-    //checked={on}
-    onChange={handelFilter}
-/>
-<span>Show unread only</span>
-</div>
-    <input className="search" type="text" name="text" onChange={handelFilter} placeholder="Search..." />
+<div><img className="menu-img" onClick={onMenu} src="assets/icons/menu.png"/></div>
 
+<img className="search-img" src="assets/icons/loupe.png" />
+<input className="search" type="text" name="text" onChange={handelFilter} placeholder="Search..." />
+
+<div className="filter-div">
+    <input className="checkbox" type="checkbox" id="checkbox" name="onlyNew" onChange={handelFilter}/>
+    <label htmlFor="checkbox"><img className="email-img" ref={img} src="assets/icons/email.png"/></label>
+</div>
     </section>
 }

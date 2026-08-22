@@ -1,10 +1,13 @@
 :root {
+    --withe: #fff;
+
     --bg1: lightblue;
-    --bg2: rgb(50, 160, 204);
-    --bg3: rgb(89, 134, 206);
+    --bg2: #c2e7ff;
+    --bg3: #d3e3fd;
+    --bg4: #f2f6fc;
     
     --color1: rgb(26, 115, 232);
-    --color2: rgb(24, 128, 56);
+    --color2: lightblue;
     --color3: rgb(197, 34, 31);
 
     --gray2: #aaa;
