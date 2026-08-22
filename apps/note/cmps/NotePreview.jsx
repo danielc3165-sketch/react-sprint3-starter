@@ -85,6 +85,22 @@ export function NotePreview({
     onChangeColor(updatedNote)
   }
 
+  function onSendEmail() {
+    let subject = note.info.title || 'My note'
+    let body = note.info.txt || note.info.url || ''
+
+    if (note.type === 'NoteTodos') {
+      body = note.info.todos.map((todo) => todo.txt).join('\n')
+    }
+
+    const mailUrl =
+      '/mail?subject=' +
+      encodeURIComponent(subject) +
+      '&body=' +
+      encodeURIComponent(body)
+
+    window.location.hash = mailUrl
+  }
   return (
     <article
       className="note-preview"
@@ -109,6 +125,8 @@ export function NotePreview({
             onChange={onColorChange}
           />
         </label>
+
+        <button onClick={onSendEmail}>Send as email</button>
       </div>
     </article>
   )
