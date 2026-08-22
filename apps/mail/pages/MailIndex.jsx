@@ -1,34 +1,62 @@
+import { utilService } from '../../../services/util.service.js'
+import { mailService } from '../services/mail.service.js'
+import { showSuccessMsg } from '../../../services/event-bus.service.js'
 
-import { utilService } from "../../../services/util.service.js"
-import { mailService } from "../services/mail.service.js"
-
-import { MailFilter } from "../cmps/MailFilter.jsx"
-import { SideBar } from "../cmps/SideBar.jsx"
-import { MailList } from "../cmps/MailList.jsx"
-import { SendMessage } from "../cmps/SendMessage.jsx"
-
+import { MailFilter } from '../cmps/MailFilter.jsx'
+import { MailList } from '../cmps/MailList.jsx'
+import { MailStars } from '../cmps/MailStars.jsx'
+import { MailSent } from '../cmps/MailSent.jsx'
+import { MailDraft } from '../cmps/MailDraft.jsx'
+import { MailTrash } from '../cmps/MailTrash.jsx'
+import { SideBar } from '../cmps/SideBar.jsx'
+import { SendMessage } from '../cmps/SendMessage.jsx'
+import { UserMsg } from '../../../cmps/UserMsg.jsx'
 
 const { useState, useEffect } = React
 
-export function MailIndex({mailsData}) {
+export function MailIndex({ mailsData }) {
+  const [mails, setMails] = useState(mailsData)
 
-    const [ mails,setMails] = useState(mailsData)
-    const [ sendMessage,setSendMessage ] = useState(false)
-    const [ filter,setFilter ] = useState({text:'',onlyNew:false})
-    
-    //console.log('filter',filter)
-     
-    useEffect(()=>{
-        mailService.query(filter)
-        .then(data=>{
-            setMails(data)
-            //console.log('data',data)
-        })
-        
-     },[filter])
+  const [sendMessage, setSendMessage] = useState(false)
+  const [mssInfo, setMssInfo] = useState({})
+  const [userMsg, setUserMsg] = useState(true)
 
-     
-  function removeMail(id,ev){
+  const [filter, setFilter] = useState({
+    text: '',
+    onlyNew: false,
+    status: 'MailList',
+  })
+  const [cmpType, setCmpType] = useState('MailList')
+
+  const [isClose, setIsClose] = useState(true)
+  //console.log('sideBar',sideBar)
+
+  useEffect(() => {
+    loadMail()
+  }, [filter])
+
+  useEffect(() => {
+    const hash = window.location.hash
+    const query = hash.split('?')[1]
+
+    if (!query) return
+
+    const params = new URLSearchParams(query)
+    const subject = params.get('subject')
+    const body = params.get('body')
+
+    if (subject || body) {
+      setMssInfo({
+        adress: '',
+        subject: subject || '',
+        body: body || '',
+      })
+
+      setSendMessage(true)
+    }
+  }, [])
+
+  function removeMail(id, ev) {
     ev.stopPropagation()
 
     mailService
@@ -42,70 +70,70 @@ export function MailIndex({mailsData}) {
     // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
   }
 
-function loadMail(){
-    mailService.query(filter)
-        .then(data=>{
-            setMails(data)
-        })
-}
+  function loadMail() {
+    mailService.query(filter).then((data) => {
+      setMails(data)
+    })
+  }
 
-   function sendMss(){
-      console.log('O.K')
-      mailService.send(mssInfo)
-      .then(()=>loadMail())
-      .then(()=>{
+  function sendMss() {
+    console.log('O.K')
+    mailService
+      .send(mssInfo)
+      .then(() => loadMail())
+      .then(() => {
         showSuccessMsg('Your message sent')
         //console.log('newMss',newMss)
-    })
-   }
+      })
+  }
 
-   function onMenu(){
-       setIsClose(false)
-    }
+  function onMenu() {
+    setIsClose(false)
+  }
 
-     if(!mails) return
-
-    return <section>
-
-    {sendMessage && <SendMessage 
-        sendMessage={sendMessage}
-        setSendMessage={setSendMessage} />}
-     
-    <div className="mail-index">
-
-        <SideBar 
-        mails={mails} 
-        sendMessage={sendMessage}
-        setSendMessage={setSendMessage}/>
-
-    <section className="container">
+  if (!mails) return
+  //console.log('mails',mails)
+  return (
+    <section>
+      {sendMessage && (
+        <SendMessage
+          sendMessage={sendMessage}
+          setSendMessage={setSendMessage}
+          setMssInfo={setMssInfo}
+          sendMss={sendMss}
+          mssInfo={mssInfo}
         
-        <MailFilter filter={filter} setFilter={setFilter} />
-    
-        <MailList 
-        mails={mails} 
-        setMails={setMails} 
-        removeMail={removeMail}
-        changeIsRead={changeIsRead} 
         />
-        
-    </section>
-    </div>
+      )}
 
+      <div className="mail-index">
+        <SideBar
+          mails={mails}
+          sendMessage={sendMessage}
+          setSendMessage={setSendMessage}
+          setCmpType={setCmpType}
+          filter={filter}
+          setFilter={setFilter}
+          isClose={isClose}
+          setIsClose={setIsClose}
+        />
+
+        <section className="container">
+          <MailFilter filter={filter} setFilter={setFilter} onMenu={onMenu} />
+
+          <DynamicCmp
+            mails={mails}
+            cmpType={cmpType}
+            setMails={setMails}
+            removeMail={removeMail}
+            changeIsRead={changeIsRead}
+          />
+
+          {userMsg && <UserMsg />}
+        </section>
+      </div>
     </section>
   )
-}
-
-function DynamicCmp(props) {
-    const cmpMap = {
-    MailList: <MailList { ...props } />,
-    MailStars: <MailStars { ...props } />,
-    MailSent: <MailSent { ...props } />,
-    MailDraft: <MailDraft { ...props } />,
-    MailTrash: <MailTrash { ...props } />
-}
-    //console.log('props',props.cmpType)
-    return cmpMap[props.cmpType]
 }
 
 function DynamicCmp(props) {
@@ -119,3 +147,6 @@ function DynamicCmp(props) {
   //console.log('props',props.cmpType)
   return cmpMap[props.cmpType]
 }
+
+
+
