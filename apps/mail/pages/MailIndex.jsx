@@ -14,9 +14,13 @@ import { SendMessage } from "../cmps/SendMessage.jsx"
 import { UserMsg } from "../../../cmps/UserMsg.jsx"
 
 const { useState,useEffect } = React
+const { useSearchParams } = ReactRouterDOM
 
 
 export function MailIndex({mailsData}) {
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    
 
     const [ mails,setMails] = useState(mailsData)
     
@@ -24,7 +28,7 @@ export function MailIndex({mailsData}) {
     const [ mssInfo, setMssInfo ] = useState({})
     const [ userMsg,setUserMsg ] = useState(true)
     
-    const [ filter,setFilter ] = useState({text:'',onlyNew:false,status:'MailList'})
+    const [ filter,setFilter ] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [ cmpType,setCmpType ] = useState('MailList')
 
     const [isClose,setIsClose] = useState(true)
@@ -33,7 +37,8 @@ export function MailIndex({mailsData}) {
     useEffect(()=>{
         
         loadMail()
-        
+        setSearchParams(utilService.trimObj(filter))
+        console.log('M',mails)
      },[filter])
 
     function removeMail(id,ev){
@@ -44,17 +49,19 @@ export function MailIndex({mailsData}) {
     
   }
 
-  function changeIsRead(mail){
-    mail.isRead = true
-    mailService.update(mail)
-    .then(newMail=>console.log('newMail',newMail))
-    // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
-  }
+//   function changeIsRead(mail){
+//     mail.isRead = true
+//     mailService.update(mail)
+//     .then(newMail=>console.log('newMail',newMail))
+//     // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
+//   }
 
 function loadMail(){
     mailService.query(filter)
         .then(data=>{
             setMails(data)
+
+          
         })
 }
 
@@ -71,6 +78,30 @@ function loadMail(){
    function onMenu(){
        setIsClose(false)
     }
+
+
+function renderDate(mail){
+    const timestamp = mail.sentAt || mail.createdAt
+    if (!timestamp) return 'No date'
+
+    const date = new Date(Number(timestamp))
+    if (isNaN(date.getTime())) return 'No date'
+
+    return date.toLocaleDateString(undefined, {
+      month: 'numeric',
+      day: 'numeric',
+      year: 'numeric',
+    })
+ }
+
+ function changeIsStared(ev){
+  ev.stopPropagation()
+  console.log(ev.target.src)
+  if(ev.target.src==='http://127.0.0.1:5500/assets/icons/star-off.png') ev.target.src='assets/icons/star-on.png'
+  else ev.target.src='assets/icons/star-off.png'
+ }
+
+ 
 
      if(!mails) return
      //console.log('mails',mails)
@@ -105,7 +136,8 @@ function loadMail(){
         cmpType={cmpType}
         setMails={setMails} 
         removeMail={removeMail}
-        changeIsRead={changeIsRead} 
+        renderDate={renderDate}
+        changeIsStared={changeIsStared}
         />
 
         {userMsg && <UserMsg />}

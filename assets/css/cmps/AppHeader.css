@@ -10,7 +10,7 @@ nav a {
 }
 
 nav a.active {
-    color: var(--color1);
+    color: #fff;
     font-weight: bold;
     text-decoration: overline;
 }

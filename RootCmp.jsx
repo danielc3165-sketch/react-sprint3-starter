@@ -11,6 +11,11 @@ import { Home } from './pages/Home.jsx'
 import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 import { MailPreview } from './apps/mail/pages/MailPreview.jsx'
+import { BookIndex } from './apps/miss-books - Menachem Farkash/pages/BookIndex.jsx'
+import { BookDetails } from './apps/miss-books - Menachem Farkash/cmps/BookDetails.jsx'
+import { BookEdit } from './apps/miss-books - Menachem Farkash/pages/BookEdit.jsx'
+import { BookAdd } from './apps/miss-books - Menachem Farkash/pages/BookAdd.jsx'
+import { BookStatistics } from './apps/miss-books - Menachem Farkash/pages/BookStatistics.jsx'
 
 export function RootCmp() {
 
@@ -29,7 +34,8 @@ const mails = [
 	    sentAt: null,
 	    removedAt: null,
 	    from: 'momo@momo.com',
-	    to: 'user@appsus.com'
+	    to: 'user@appsus.com',
+		stared:false
     },
 	{
 		id: 'e102',
@@ -40,7 +46,8 @@ const mails = [
 		sentAt: 1652133930594,
 		removedAt: null,
 		from: 'team@work.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:false
 	},
 	{
 		id: 'e103',
@@ -51,7 +58,8 @@ const mails = [
 		sentAt: null,
 		removedAt: null,
 		from: 'store@shop.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:true
 	},
 	{
 		id: 'e104',
@@ -62,7 +70,8 @@ const mails = [
 		sentAt: 1674133930594,
 		removedAt: null,
 		from: 'friend@social.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:false
 	},
 	{
 		id: 'e105',
@@ -71,9 +80,10 @@ const mails = [
 		body: 'Attached is your invoice for the recent order.',
 		isRead: false,
 		sentAt: 1685133930594,
-		removedAt: null,
-		from: 'billing@services.com',
-		to: 'user@appsus.com'
+		removedAt: 1685133930594,
+		from: 'billing@service.com',
+		to: 'user@appsus.com',
+		stared:true
 	},
 	{
 		id: 'e106',
@@ -84,7 +94,8 @@ const mails = [
 		sentAt: null,
 		removedAt: null,
 		from: 'travel@airline.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:false
 	},
 	{
 		id: 'e107',
@@ -93,9 +104,10 @@ const mails = [
 		body: 'Here are the highlights from this week.',
 		isRead: false,
 		sentAt: 1707133930594,
-		removedAt: null,
+		removedAt: 1707133930594,
 		from: 'news@newsletter.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:false
 	},
 	{
 		id: 'e108',
@@ -103,10 +115,11 @@ const mails = [
 		subject: 'Password Reset',
 		body: 'Click here to reset your password for your account.',
 		isRead: true,
-		sentAt: null,
+		sentAt: 1718133930500,
 		removedAt: null,
 		from: 'security@service.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:true
 	},
 	{
 		id: 'e109',
@@ -117,7 +130,8 @@ const mails = [
 		sentAt: 1729133930594,
 		removedAt: null,
 		from: 'events@club.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:false
 	},
 	{
 		id: 'e110',
@@ -126,9 +140,10 @@ const mails = [
 		body: 'Welcome to the team! Here are some resources to get started.',
 		isRead: true,
 		sentAt: 1730133930594,
-		removedAt: null,
+		removedAt: 1730133930594,
 		from: 'hr@company.com',
-		to: 'user@appsus.com'
+		to: 'user@appsus.com',
+		stared:true
 	}
 ]
 
@@ -143,6 +158,14 @@ const mails = [
                 <Route path="/mail" element={<MailIndex mailsData={mails}/>} />
                 <Route path="/note" element={<NoteIndex />} />
                 <Route path="/mail/:id" element={<MailPreview />} />
+				
+				<Route path="/book" element={<BookIndex />} />
+				<Route path="/book/add" element={<BookAdd />} />
+				<Route path="/book/edit" element={<BookEdit />} />
+				<Route path="/book/edit/:id" element={<BookEdit />} />
+				<Route path="/book/statistics" element={<BookStatistics />} />
+				<Route path="/book/:id" element={<BookDetails />} />
+
             </Routes>
             <UserMsg />
         </section>

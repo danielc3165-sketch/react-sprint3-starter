@@ -49,18 +49,29 @@ export function SideBar({mails,sendMessage,setSendMessage,setCmpType,setFilter,f
      
      <button className={`${isBlue('MailList')}`} onClick={()=>handelChange('MailList')}><img src="assets/icons/messages.png"/>
      <span>Inbox</span>
-     <span>{filter.status==='MailList'? '| '+count : ''}</span>
+     <span className="count-span">{filter.status==='MailList'? count : ''}</span>
      </button>
      
-     <button className={`${isBlue('MailStars')}`} onClick={()=>handelChange('MailStars')}><img src="assets/icons/star-off.png"/><span>Stared</span></button>
+     <button className={`${isBlue('MailStars')}`} onClick={()=>handelChange('MailStars')}><img src="assets/icons/star-off.png"/>
+     <span>Stared</span>
+     <span>{filter.status==='MailStars'? count : ''}</span>
+     </button>
      
      <button className={`${isBlue('MailSent')}`} onClick={()=>handelChange('MailSent')}><img src="assets/icons/send.png"/>
      <span>Sent</span>
-     <span>{filter.status==='MailSent'? '| '+count : ''}</span>
+     <span>{filter.status==='MailSent'? count : ''}</span>
      </button>
      
-     <button className={`${isBlue('MailDraft')}`} onClick={()=>handelChange('MailDraft')}><img src="assets/icons/file.png"/><span>Draft</span></button>
-     <button className={`${isBlue('MailTrash')}`} onClick={()=>handelChange('MailTrash')}><img src="assets/icons/trash.png"/><span>Trash</span></button>
+     <button className={`${isBlue('MailDraft')}`} onClick={()=>handelChange('MailDraft')}><img src="assets/icons/file.png"/>
+     <span>Draft</span>
+     <span>{filter.status==='MailDraft'? count : ''}</span>
+     </button>
+     
+     <button className={`${isBlue('MailTrash')}`} onClick={()=>handelChange('MailTrash')}><img src="assets/icons/trash.png"/>
+     <span>Trash</span>
+     <span>{filter.status==='MailTrash'? count : ''}</span>
+     </button>
+     
      </div>
 
     </section>

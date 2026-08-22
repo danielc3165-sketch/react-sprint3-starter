@@ -40,7 +40,7 @@ return <section className="filter">
 <div><img className="menu-img" onClick={onMenu} src="assets/icons/menu.png"/></div>
 
 <img className="search-img" src="assets/icons/loupe.png" />
-<input className="search" type="text" name="text" onChange={handelFilter} placeholder="Search..." />
+<input className="search" type="text" value={filterToEdit.txt} name="txt" onChange={handelFilter} placeholder="Search..." />
 
 <div className="filter-div">
     <input className="checkbox" type="checkbox" id="checkbox" name="onlyNew" onChange={handelFilter}/>
