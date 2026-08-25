@@ -66,7 +66,12 @@ function loadMail(){
   function sendMss() {
     mailService
       .send(mssInfo,currMsg)
-      .then(() => {loadMail(),setCurrMsg({}),setMssInfo({})})
+      .then(() => {
+        loadMail()
+        setCurrMsg({})
+        setMssInfo({})
+        setSendMessage(false)
+      })
       .then(() => {
         showSuccessMsg('Your message sent')
         //console.log('newMss',newMss)

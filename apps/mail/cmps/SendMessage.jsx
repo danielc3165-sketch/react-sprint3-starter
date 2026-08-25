@@ -6,6 +6,11 @@ export function SendMessage({
   sendMss,
   mssInfo,
 }) {
+  function handleSubmit(event) {
+    event.preventDefault()
+    sendMss()
+  }
+
   function handelCange({ target }) {
     var { value, name } = target
     //console.log('value',value)
@@ -15,7 +20,7 @@ export function SendMessage({
   return (
     <form
       className="send-message"
-      onSubmit={() => setSendMessage((prev) => !prev)}
+      onSubmit={handleSubmit}
     >
       <div id="new-message-div">
         New Message
@@ -55,7 +60,7 @@ export function SendMessage({
       ></textarea>
 
       <div>
-        <button id="send-btn" onClick={sendMss}>
+        <button id="send-btn" type="submit">
           send
         </button>
       </div>
