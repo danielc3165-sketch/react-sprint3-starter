@@ -1,84 +1,81 @@
-
-import { utilService } from "../../../services/util.service.js"
-import { mailService } from "../services/mail.service.js"
+import { utilService } from '../../../services/util.service.js'
+import { mailService } from '../services/mail.service.js'
 import { showSuccessMsg } from '../../../services/event-bus.service.js'
 
-import { MailFilter } from "../cmps/MailFilter.jsx"
-import { MailList } from "../cmps/MailList.jsx"
-import { MailStars } from "../cmps/MailStars.jsx"
-import { MailSent } from "../cmps/MailSent.jsx"
-import { MailDraft } from "../cmps/MailDraft.jsx"
-import { MailTrash } from "../cmps/MailTrash.jsx"
-import { SideBar } from "../cmps/SideBar.jsx"
-import { SendMessage } from "../cmps/SendMessage.jsx"
-import { UserMsg } from "../../../cmps/UserMsg.jsx"
+import { MailFilter } from '../cmps/MailFilter.jsx'
+import { MailList } from '../cmps/MailList.jsx'
+import { MailStars } from '../cmps/MailStars.jsx'
+import { MailSent } from '../cmps/MailSent.jsx'
+import { MailDraft } from '../cmps/MailDraft.jsx'
+import { MailTrash } from '../cmps/MailTrash.jsx'
+import { SideBar } from '../cmps/SideBar.jsx'
+import { SendMessage } from '../cmps/SendMessage.jsx'
 
 const { useState,useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 
-export function MailIndex({mailsData}) {
 
-    const [searchParams, setSearchParams] = useSearchParams()
-    
+export function MailIndex({ mailsData }) {
+  const [mails, setMails] = useState(mailsData)
 
-    const [ mails,setMails] = useState(mailsData)
-    
-    const [ sendMessage,setSendMessage ] = useState(false)
-    const [ mssInfo, setMssInfo ] = useState({})
-    const [ userMsg,setUserMsg ] = useState(true)
-    
-    const [ filter,setFilter ] = useState(mailService.getFilterFromSearchParams(searchParams))
-    const [ cmpType,setCmpType ] = useState('MailList')
+  const [sendMessage, setSendMessage] = useState(false)
+  const [mssInfo, setMssInfo] = useState({})
+  const [ currMsg,setCurrMsg ] = useState({})
+  
 
-    const [isClose,setIsClose] = useState(true)
+  const [searchParams, setSearchParams] = useSearchParams()
+    
+  const [ filter,setFilter ] = useState(mailService.getFilterFromSearchParams(searchParams))
+  const [ cmpType,setCmpType ] = useState('MailList')
+
+  const [isClose,setIsClose] = useState(true)
     //console.log('sideBar',sideBar)
      
     useEffect(()=>{
-        
+        console.log('cuurM',currMsg)
         loadMail()
         setSearchParams(utilService.trimObj(filter))
-        console.log('M',mails)
-     },[filter])
+        //console.log('M',mails)
+     },[filter,currMsg])
 
-    function removeMail(id,ev){
+  //console.log('sideBar',sideBar)
+
+
+  function removeMail(id, ev) {
     ev.stopPropagation()
 
-    mailService.remove(id)
-    .then(()=>setMails(prev=>prev.filter(mail=>mail.id!==id)))
-    
+    mailService
+      .remove(id)
+      .then(() => setMails((prev) => prev.filter((mail) => mail.id !== id)))
   }
-
-//   function changeIsRead(mail){
-//     mail.isRead = true
-//     mailService.update(mail)
-//     .then(newMail=>console.log('newMail',newMail))
-//     // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
-//   }
 
 function loadMail(){
     mailService.query(filter)
-        .then(data=>{
-            setMails(data)
-
-          
-        })
+    .then(data=>{
+    setMails(data)
+})
 }
 
-   function sendMss(){
-      console.log('O.K')
-      mailService.send(mssInfo)
-      .then(()=>loadMail())
-      .then(()=>{
+  function changeIsRead(mail) {
+    mail.isRead = true
+    mailService.update(mail).then((newMail) => console.log('newMail', newMail))
+    // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
+  }
+
+  function sendMss() {
+    mailService
+      .send(mssInfo,currMsg)
+      .then(() => {loadMail(),setCurrMsg({}),setMssInfo({})})
+      .then(() => {
         showSuccessMsg('Your message sent')
         //console.log('newMss',newMss)
-    })
-   }
+      })
+  }
 
-   function onMenu(){
-       setIsClose(false)
-    }
-
+  function onMenu() {
+    setIsClose(false)
+  }
 
 function renderDate(mail){
     const timestamp = mail.sentAt || mail.createdAt
@@ -94,12 +91,42 @@ function renderDate(mail){
     })
  }
 
- function changeIsStared(ev){
+function renderStar(mail){
+  if(mail.stared===true) return 'assets/icons/star-on.png'
+  else  return 'assets/icons/star-off.png'
+}
+
+
+function changeIsStared(ev,mail){
+  
+  //console.log('target,mail',ev.target,mail)
+  
   ev.stopPropagation()
-  console.log(ev.target.src)
   if(ev.target.src==='http://127.0.0.1:5500/assets/icons/star-off.png') ev.target.src='assets/icons/star-on.png'
   else ev.target.src='assets/icons/star-off.png'
+
+  mail.stared = !mail.stared
+
+  mailService.update(mail)
+  .then(()=>loadMail())
+  .catch(()=>console.log('update star faild'))
  }
+
+ function onDelitMsg(ev,mail){
+   //console.log('ev,mail',ev,mail)
+   ev.stopPropagation()
+
+  mail.removedAt=Date.now()
+  mailService.update(mail)
+  .then(()=>loadMail())
+  .catch(()=>console.log('update trash faild'))
+ }
+
+ function onCompose(){
+    setCurrMsg(mailService.createMss())
+ }
+
+
 
  
 
@@ -110,6 +137,7 @@ function renderDate(mail){
     {sendMessage && <SendMessage 
         sendMessage={sendMessage}
         setSendMessage={setSendMessage}
+        mssInfo={mssInfo}
         setMssInfo={setMssInfo}
         sendMss={sendMss}/>}
          
@@ -121,6 +149,7 @@ function renderDate(mail){
         mails={mails} 
         sendMessage={sendMessage}
         setSendMessage={setSendMessage}
+        onCompose={onCompose}
         setCmpType={setCmpType}
         filter={filter}
         setFilter={setFilter}
@@ -137,26 +166,29 @@ function renderDate(mail){
         setMails={setMails} 
         removeMail={removeMail}
         renderDate={renderDate}
+        renderStar={renderStar}
         changeIsStared={changeIsStared}
-        />
-
-        {userMsg && <UserMsg />}
-        
+        changeIsRead={changeIsRead}
+        onDelitMsg={onDelitMsg}/>
+      
     </section>
+      
     </div>
-
     </section>
+  
 }
 
 function DynamicCmp(props) {
-    const cmpMap = {
-    MailList: <MailList { ...props } />,
-    MailStars: <MailStars { ...props } />,
-    MailSent: <MailSent { ...props } />,
-    MailDraft: <MailDraft { ...props } />,
-    MailTrash: <MailTrash { ...props } />
+  const cmpMap = {
+    MailList: <MailList {...props} />,
+    MailStars: <MailStars {...props} />,
+    MailSent: <MailSent {...props} />,
+    MailDraft: <MailDraft {...props} />,
+    MailTrash: <MailTrash {...props} />,
+  }
+  //console.log('props',props.cmpType)
+  return cmpMap[props.cmpType]
 }
-    //console.log('props',props.cmpType)
-    return cmpMap[props.cmpType]
-}
+
+
 

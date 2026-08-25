@@ -1,1 +1,101 @@
- /* note list */
+.note-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.note-list li {
+  min-width: 0;
+}
+
+.note-preview {
+  min-height: 150px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px #0002;
+  overflow: hidden;
+}
+
+.note-preview h3 {
+  margin-block-start: 0;
+}
+
+.note-preview img,
+.note-preview iframe {
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+}
+
+.note-preview img {
+  display: block;
+  object-fit: cover;
+}
+
+.note-preview iframe {
+  min-height: 180px;
+}
+
+.note-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-block-start: 15px;
+}
+
+.note-actions button {
+  font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+  background-color: #2525251b;
+  color: white;
+
+  cursor: pointer;
+
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 4px;
+}
+
+.note-actions button:hover {
+  background-color: #55555562;
+}
+
+@media (max-width: 700px) {
+  .note-list {
+    grid-template-columns: 1fr;
+  }
+
+  .note-add,
+  .note-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.color-button {
+  background-color: #2525251b;
+  color: white;
+  cursor: pointer;
+
+  position: relative;
+  display: inline-block;
+
+  padding: 6px 9px;
+  border-radius: 4px;
+}
+
+.color-button:hover {
+  background-color: #55555562;
+}
+
+.color-button input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  
+  cursor: pointer;
+}
