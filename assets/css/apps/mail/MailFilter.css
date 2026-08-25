@@ -49,3 +49,8 @@
 .checkbox{
     display: none;
 }
+
+.checkbox-lable{
+    display: flex;
+    width: 30px;
+}

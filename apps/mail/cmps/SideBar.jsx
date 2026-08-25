@@ -1,8 +1,11 @@
-import { MailSent } from "./MailSent.jsx"
 
-const { useState,useEffect,useRef } = React
+const { useState,useEffect} = React
 
-export function SideBar({mails,sendMessage,setSendMessage,setCmpType,setFilter,filter,isClose,setIsClose}){
+export function SideBar({
+    mails,setSendMessage,
+    setCmpType,setFilter,
+    filter,isClose,
+    setIsClose,onCompose}){
 
     //console.log(filter)
 
@@ -43,33 +46,47 @@ export function SideBar({mails,sendMessage,setSendMessage,setCmpType,setFilter,f
     
     <button className="close-side-bar">X</button>
 
-     <button className="side-bar-btn" onClick={()=>setSendMessage(true)}><img src="assets/icons/compose.png"/><span>Compoce</span></button>
+     <button className="side-bar-btn" onClick={()=>{setSendMessage(true),onCompose()}}><img src="assets/icons/compose.png"/><span>Compoce</span></button>
 
      <div className="side-bar-div">
-     
-     <button className={`${isBlue('MailList')}`} onClick={()=>handelChange('MailList')}><img src="assets/icons/messages.png"/>
+     <button className={`${isBlue('MailList')}`} onClick={()=>handelChange('MailList')}>
+     <div className="count-div">
+     <img src="assets/icons/messages.png"/>
      <span>Inbox</span>
-     <span className="count-span">{filter.status==='MailList'? count : ''}</span>
+     </div>
+     <span className="count-span">{filter.status==='MailList'? '| '+count : ''}</span>
      </button>
      
-     <button className={`${isBlue('MailStars')}`} onClick={()=>handelChange('MailStars')}><img src="assets/icons/star-off.png"/>
+     <button className={`${isBlue('MailStars')}`} onClick={()=>handelChange('MailStars')}>
+     <div className="count-div">
+     <img src="assets/icons/star-off.png"/>
      <span>Stared</span>
-     <span>{filter.status==='MailStars'? count : ''}</span>
+     </div>
+     <span>{filter.status==='MailStars'? '| '+count : ''}</span>
      </button>
      
-     <button className={`${isBlue('MailSent')}`} onClick={()=>handelChange('MailSent')}><img src="assets/icons/send.png"/>
+     <button className={`${isBlue('MailSent')}`} onClick={()=>handelChange('MailSent')}>
+     <div className="count-div">
+     <img src="assets/icons/send.png"/>
      <span>Sent</span>
-     <span>{filter.status==='MailSent'? count : ''}</span>
+     </div>
+     <span>{filter.status==='MailSent'? '| '+count : ''}</span>
      </button>
      
-     <button className={`${isBlue('MailDraft')}`} onClick={()=>handelChange('MailDraft')}><img src="assets/icons/file.png"/>
+     <button className={`${isBlue('MailDraft')}`} onClick={()=>handelChange('MailDraft')}>
+     <div className="count-div">
+     <img src="assets/icons/file.png"/>
      <span>Draft</span>
-     <span>{filter.status==='MailDraft'? count : ''}</span>
+     </div>
+     <span>{filter.status==='MailDraft'? '| '+count : ''}</span>
      </button>
      
-     <button className={`${isBlue('MailTrash')}`} onClick={()=>handelChange('MailTrash')}><img src="assets/icons/trash.png"/>
+     <button className={`count-btn ${isBlue('MailTrash')}`} onClick={()=>handelChange('MailTrash')}>
+     <div className="count-div">
+     <img src="assets/icons/trash.png"/>
      <span>Trash</span>
-     <span>{filter.status==='MailTrash'? count : ''}</span>
+     </div>
+     <span className="count-span">{filter.status==='MailTrash'? '| '+count : ''}</span>
      </button>
      
      </div>

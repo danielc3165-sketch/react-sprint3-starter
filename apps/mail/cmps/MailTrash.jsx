@@ -1,8 +1,8 @@
-const { useState,useEffect } = React
+
 const { useNavigate } = ReactRouterDOM
 
 
-export function MailTrash({mails,setMails,removeMail,changeIsRead,renderDate,changeIsStared}){
+export function MailTrash({mails,removeMail,changeIsRead,renderDate}){
   
   if(!mails) return
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ export function MailTrash({mails,setMails,removeMail,changeIsRead,renderDate,cha
       {mails.map(mail=><li key={mail.id} 
       className={mail.isRead ? 'read' : 'unread'}
       onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
-       <img onClick={changeIsStared} src="assets/icons/star-off.png" />
+       <div></div>
        <p className="mail-list-li-subject">{mail.subject}</p>
        <p>{mail.body}</p>
        <span className="date">{renderDate(mail)}</span>

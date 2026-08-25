@@ -2,7 +2,7 @@ const { useState,useEffect } = React
 const { useNavigate } = ReactRouterDOM
 
 
-export function MailDraft({mails,setMails,removeMail,renderDate,changeIsStared}) {
+export function MailDraft({mails,renderDate,changeIsRead,removeMail}) {
     
   //const [mailsToEdit,setMailsToEdit] = useState(mails)
 
@@ -23,8 +23,8 @@ export function MailDraft({mails,setMails,removeMail,renderDate,changeIsStared})
       
       {(mails && mails.length>0)&&mails.map(mail=><li key={mail.id} 
       className={mail.isRead ? 'read' : 'unread'}
-      onClick={()=>navigate(`/mail/${mail.id}`)}>
-       <img onClick={changeIsStared} src="assets/icons/star-off.png" />
+      onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
+       <div></div>
        <p className="mail-list-li-subject">{mail.subject}</p>
        <p>{mail.body}</p>
        <span className="date">{renderDate(mail)}</span>

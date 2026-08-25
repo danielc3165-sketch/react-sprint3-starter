@@ -1,7 +1,6 @@
 const { useRef } = React
 
 export function SendMessage({
-  sendMessage,
   setSendMessage,
   setMssInfo,
   sendMss,

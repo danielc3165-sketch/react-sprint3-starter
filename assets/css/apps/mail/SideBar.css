@@ -4,12 +4,11 @@
     grid-template-rows: 64px max-content 1fr;
     gap: 0.5rem;
     place-items: center;
-
-    /* width: 150px; */
+    width: 175px;
     padding-top: 2rem;
+    padding-inline-end: 1em;
     z-index: 2;
 }
-
 .close-side-bar{
     position: absolute;
     display: none;
@@ -53,20 +52,21 @@
    height: 25px;
 }
 
-.side-bar-div > button{
-   display: flex;
-   align-items: center;
-   gap: 1em;
-
-   height: 30px;
-   padding-left: 2em;
-   padding-right: 2em;
-
-   border:none;
+.side-bar-div > button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    width: 150px;
+    height: 30px;
+    padding-left: 2em;
+    padding-right: 1em;
+    
+    border-style: none;
 }
 
 
-.side-bar-div > button > img{
+.side-bar-div > button  img{
     width: 1rem;
     height: 1rem;
 }
@@ -91,6 +91,15 @@ background-color: buttonface;
    border-bottom-right-radius: 20px;
 }
 
-/* .count-span{
-    width:fit-content ;
-} */
+.count-btn{
+    width: 100%; ;
+}
+
+.count-div{
+    display: flex;
+    gap: 0.5em;
+}
+
+.count-span{
+    justify-self: end;
+}

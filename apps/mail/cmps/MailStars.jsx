@@ -2,7 +2,7 @@ const { useState,useEffect } = React
 const { useNavigate } = ReactRouterDOM
 
 
-export function MailStars({mails,setMails,removeMail,changeIsRead,renderDate,changeIsStared}){
+export function MailStars({mails,onDelitMsg,changeIsRead,renderDate,changeIsStared,renderStar}){
   
   if(!mails) return
   const navigate = useNavigate()
@@ -14,11 +14,11 @@ export function MailStars({mails,setMails,removeMail,changeIsRead,renderDate,cha
       {mails.map(mail=><li key={mail.id} 
       className={mail.isRead ? 'read' : 'unread'}
       onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
-       <img onClick={changeIsStared} src="assets/icons/star-off.png" />
+       <img onClick={(event)=>changeIsStared(event,mail)} src={renderStar(mail)} />
        <p className="mail-list-li-subject">{mail.subject}</p>
        <p>{mail.body}</p>
        <span className="date">{renderDate(mail)}</span>
-       <button className={mail.isRead ? 'read' : 'unread'} onClick={(event)=>removeMail(mail.id,event)}>
+       <button className={mail.isRead ? 'read' : 'unread'} onClick={(event)=>onDelitMsg(event,mail)}>
         <img className="trash-img" src="assets/icons/trash.png"></img>
        </button>
 

@@ -4,7 +4,7 @@ export function MailFilter({filter,setFilter,onMenu}){
     
     const [ filterToEdit,setFilterToEdit] = useState(filter)
 
-    console.log(filterToEdit)
+    //console.log(filterToEdit)
 
     const img=useRef()
     
@@ -44,7 +44,7 @@ return <section className="filter">
 
 <div className="filter-div">
     <input className="checkbox" type="checkbox" id="checkbox" name="onlyNew" onChange={handelFilter}/>
-    <label htmlFor="checkbox"><img className="email-img" ref={img} src="assets/icons/email.png"/></label>
+    <label className="checkbox-lable" htmlFor="checkbox"><img className="email-img" ref={img} src="assets/icons/email.png"/></label>
 </div>
     </section>
 }

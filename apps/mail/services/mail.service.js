@@ -9,6 +9,7 @@ export const mailService={
 	remove,
 	update,
 	send,
+	createMss,
 	getFilterFromSearchParams,
 }
 
@@ -30,17 +31,17 @@ function query(filter={}){
 		}
         
         if(filter.status==='MailDraft'){
-		mails=mails.filter(mail=>mail.sentAt===null)
+		mails=mails.filter(mail=>mail.sentAt===null && mail.removedAt===null)
 		}else if(filter.status==='MailList'){
-		mails=mails.filter(mail=>mail.sentAt!==null && !mail.from.includes('@service.com'))
+		mails=mails.filter(mail=>mail.sentAt!==null && !mail.from.includes('@service.com') && mail.removedAt===null)
 		}
 		else if(filter.status==='MailStars'){
-        mails=mails.filter(mail=>mail.stared===true)
+        mails=mails.filter(mail=>mail.stared===true && mail.removedAt===null)
 		}
 		else if(filter.status==='MailTrash'){
 		mails=mails.filter(mail=>mail.removedAt!==null)	
 		}else if(filter.status==='MailSent'){
-		mails=mails.filter(mail=>mail.sentAt!==null && mail.from.includes('@service.com'))
+		mails=mails.filter(mail=>mail.sentAt!==null && mail.from.includes('@service.com') && mail.removedAt===null)
 		}
 		mails=mails.sort((a,b)=>b.sentAt-a.sentAt||b.createdAt-a.createdAt)
 		
@@ -52,18 +53,17 @@ function get(id){
 	return storageService.get(MAILS_KEY,id)
 }
 
-function send(info={}){
-	var mss=_createMss()
-	mss.sentAt= Date.now()
-	mss.to=info.adress
-	mss.subject=info.subject
-	mss.body=info.body
+function send(info={},msg){
+	msg.sentAt= Date.now()
+	msg.to=info.adress
+	msg.subject=info.subject
+	msg.body=info.body
 
-	//console.log('mss',mss)
+	//console.log('msg',msg)
 
 
     
-	 return storageService.post(MAILS_KEY,mss)
+	 return storageService.post(MAILS_KEY,msg)
 	//  .then(newMss=>console.log('newMss',newMss))
 }
 
@@ -78,7 +78,7 @@ function update(mail){
 
 function getFilterFromSearchParams(searchParams) {
     const defaultFilter = _getDefaultFilter()
-	console.log('Dfilter',defaultFilter)
+	//console.log('Dfilter',defaultFilter)
     const filter = {}
 
     for (const field in defaultFilter) {
@@ -91,8 +91,8 @@ function getFilterFromSearchParams(searchParams) {
 }
 
 
-function _createMss(){
-	var newMss={
+function createMss(){
+	const newMss={
 	    createdAt: Date.now(),
 	    subject: '',
 	    body:'',

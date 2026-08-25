@@ -31,7 +31,7 @@ const mails = [
 	    subject: 'Miss you!',
 	    body: 'Would love to catch up sometimes',
 	    isRead: false,
-	    sentAt: null,
+	    sentAt: 1551133930500,
 	    removedAt: null,
 	    from: 'momo@momo.com',
 	    to: 'user@appsus.com',
@@ -55,11 +55,11 @@ const mails = [
 		subject: 'Sale this weekend',
 		body: 'Don\'t miss our weekend sale — up to 50% off!',
 		isRead: false,
-		sentAt: null,
+		sentAt: 1663133930500,
 		removedAt: null,
 		from: 'store@shop.com',
 		to: 'user@appsus.com',
-		stared:true
+		stared:false
 	},
 	{
 		id: 'e104',
@@ -80,10 +80,10 @@ const mails = [
 		body: 'Attached is your invoice for the recent order.',
 		isRead: false,
 		sentAt: 1685133930594,
-		removedAt: 1685133930594,
-		from: 'billing@service.com',
+		removedAt: null,
+		from: 'billing@services.com',
 		to: 'user@appsus.com',
-		stared:true
+		stared:false
 	},
 	{
 		id: 'e106',
@@ -91,7 +91,7 @@ const mails = [
 		subject: 'Flight Confirmation',
 		body: 'Your flight is confirmed. See details inside.',
 		isRead: true,
-		sentAt: null,
+		sentAt: 1696133930500,
 		removedAt: null,
 		from: 'travel@airline.com',
 		to: 'user@appsus.com',
@@ -104,7 +104,7 @@ const mails = [
 		body: 'Here are the highlights from this week.',
 		isRead: false,
 		sentAt: 1707133930594,
-		removedAt: 1707133930594,
+		removedAt: null,
 		from: 'news@newsletter.com',
 		to: 'user@appsus.com',
 		stared:false
@@ -117,9 +117,9 @@ const mails = [
 		isRead: true,
 		sentAt: 1718133930500,
 		removedAt: null,
-		from: 'security@service.com',
+		from: 'security@services.com',
 		to: 'user@appsus.com',
-		stared:true
+		stared:false
 	},
 	{
 		id: 'e109',
@@ -140,10 +140,10 @@ const mails = [
 		body: 'Welcome to the team! Here are some resources to get started.',
 		isRead: true,
 		sentAt: 1730133930594,
-		removedAt: 1730133930594,
+		removedAt: null,
 		from: 'hr@company.com',
 		to: 'user@appsus.com',
-		stared:true
+		stared:false
 	}
 ]
 
