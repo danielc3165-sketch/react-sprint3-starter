@@ -149,8 +149,9 @@ export function RootCmp() {
 	]
 
 	useEffect(() => {
-
-		utilService.saveToStorage('mails', mails)
+		if (!utilService.loadFromStorage('mails') || utilService.loadFromStorage('mails').length === 0) {
+			utilService.saveToStorage('mails', mails)
+		}
 	}, [])
 
 
