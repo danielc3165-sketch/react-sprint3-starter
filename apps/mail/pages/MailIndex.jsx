@@ -37,7 +37,7 @@ export function MailIndex({ mailsData }) {
         loadMail()
         setSearchParams(utilService.trimObj(filter))
         console.log('filter',filter)
-     },[filter])
+     },[filter, mailsData])
 
   //console.log('sideBar',sideBar)
 
