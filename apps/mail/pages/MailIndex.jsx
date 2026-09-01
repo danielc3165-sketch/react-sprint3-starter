@@ -16,8 +16,8 @@ const { useSearchParams } = ReactRouterDOM
 
 
 
-export function MailIndex({ mailsData }) {
-  const [mails, setMails] = useState(mailsData)
+export function MailIndex() {
+  const [mails, setMails] = useState([])
 
   const [sendMessage, setSendMessage] = useState(false)
   const [mssInfo, setMssInfo] = useState({})
@@ -37,7 +37,7 @@ export function MailIndex({ mailsData }) {
         loadMail()
         setSearchParams(utilService.trimObj(filter))
         console.log('filter',filter)
-     },[filter, mailsData])
+     },[filter])
 
   //console.log('sideBar',sideBar)
 

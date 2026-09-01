@@ -3,6 +3,137 @@ import { utilService } from "../../../services/util.service.js"
 import { storageService } from "../../../services/async-storage.service.js"
 import { MailList } from "../cmps/MailList.jsx"
 
+_initMails()
+
+function _initMails() {
+	const storedMails = utilService.loadFromStorage('mails')
+	if (!storedMails || storedMails.length === 0) {
+		const defaultMails = [
+			{
+				id: 'e101',
+				createdAt: 1551133930500,
+				subject: 'Miss you!',
+				body: 'Would love to catch up sometimes',
+				isRead: false,
+				sentAt: 1551133930500,
+				removedAt: null,
+				from: 'momo@momo.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e102',
+				createdAt: 1652133930500,
+				subject: 'Meeting tomorrow',
+				body: 'Reminder: Project meeting at 10am in conference room B.',
+				isRead: true,
+				sentAt: 1652133930594,
+				removedAt: null,
+				from: 'team@work.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e103',
+				createdAt: 1663133930500,
+				subject: 'Sale this weekend',
+				body: 'Don\'t miss our weekend sale — up to 50% off!',
+				isRead: false,
+				sentAt: 1663133930500,
+				removedAt: null,
+				from: 'store@shop.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e104',
+				createdAt: 1674133930500,
+				subject: 'Invitation: Birthday Party',
+				body: 'You are invited to my birthday party next Saturday.',
+				isRead: true,
+				sentAt: 1674133930594,
+				removedAt: null,
+				from: 'friend@social.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e105',
+				createdAt: 1685133930500,
+				subject: 'Invoice #3421',
+				body: 'Attached is your invoice for the recent order.',
+				isRead: false,
+				sentAt: 1685133930594,
+				removedAt: null,
+				from: 'billing@services.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e106',
+				createdAt: 1696133930500,
+				subject: 'Flight Confirmation',
+				body: 'Your flight is confirmed. See details inside.',
+				isRead: true,
+				sentAt: 1696133930500,
+				removedAt: null,
+				from: 'travel@airline.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e107',
+				createdAt: 1707133930500,
+				subject: 'Weekly Newsletter',
+				body: 'Here are the highlights from this week.',
+				isRead: false,
+				sentAt: 1707133930594,
+				removedAt: null,
+				from: 'news@newsletter.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e108',
+				createdAt: 1718133930500,
+				subject: 'Password Reset',
+				body: 'Click here to reset your password for your account.',
+				isRead: true,
+				sentAt: 1718133930500,
+				removedAt: null,
+				from: 'security@services.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e109',
+				createdAt: 1729133930500,
+				subject: 'Event RSVP',
+				body: 'Thanks for RSVPing — we look forward to seeing you.',
+				isRead: false,
+				sentAt: 1729133930594,
+				removedAt: null,
+				from: 'events@club.com',
+				to: 'user@appsus.com',
+				stared: false
+			},
+			{
+				id: 'e110',
+				createdAt: 1730133930500,
+				subject: 'Welcome aboard',
+				body: 'Welcome to the team! Here are some resources to get started.',
+				isRead: true,
+				sentAt: 1730133930594,
+				removedAt: null,
+				from: 'hr@company.com',
+				to: 'user@appsus.com',
+				stared: false
+			}
+		]
+		utilService.saveToStorage('mails', defaultMails)
+	}
+}
+
 export const mailService={
 	query,
 	get,
