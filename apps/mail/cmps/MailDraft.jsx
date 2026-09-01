@@ -1,8 +1,8 @@
-const { useState,useEffect } = React
+
 const { useNavigate } = ReactRouterDOM
 
 
-export function MailDraft({mails,renderDate,changeIsRead,removeMail}) {
+export function MailDraft({mails,renderDate,changeIsRead,removeMail,setSendMessage,updateInfo}) {
     
   //const [mailsToEdit,setMailsToEdit] = useState(mails)
 
@@ -23,7 +23,7 @@ export function MailDraft({mails,renderDate,changeIsRead,removeMail}) {
       
       {(mails && mails.length>0)&&mails.map(mail=><li key={mail.id} 
       className={mail.isRead ? 'read' : 'unread'}
-      onClick={()=>{navigate(`/mail/${mail.id}`),changeIsRead(mail)}}>
+      onClick={()=>{changeIsRead(mail),setSendMessage(true),updateInfo(mail)}}>
        <div></div>
        <p className="mail-list-li-subject">{mail.subject}</p>
        <p>{mail.body}</p>

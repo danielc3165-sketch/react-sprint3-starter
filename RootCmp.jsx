@@ -148,11 +148,13 @@ export function RootCmp() {
 		}
 	]
 
-	useEffect(() => {
+	// useEffect(() => {
 
-		utilService.saveToStorage('mails', mails)
-	}, [])
+	// 	utilService.saveToStorage('mails', mails)
+	// }, [])
 
+
+	
 
 	return <Router>
 		<section className="root-cmp">

@@ -9,6 +9,7 @@ export const mailService={
 	remove,
 	update,
 	send,
+	exitMsg,
 	createMss,
 	getFilterFromSearchParams,
 }
@@ -62,9 +63,18 @@ function send(info={},msg){
 	//console.log('msg',msg)
 
 
-    
+    if(msg.id)  return storageService.put(MAILS_KEY,msg)
 	 return storageService.post(MAILS_KEY,msg)
 	//  .then(newMss=>console.log('newMss',newMss))
+}
+
+function exitMsg(info={},msg){
+    msg.to=info.adress
+	msg.subject=info.subject
+	msg.body=info.body
+	console.log('ex-msg',msg)
+    if(msg.id) return storageService.put(MAILS_KEY,msg)
+	else return storageService.post(MAILS_KEY,msg)
 }
 
 function remove(id){

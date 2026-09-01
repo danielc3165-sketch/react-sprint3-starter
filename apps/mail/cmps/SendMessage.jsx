@@ -3,8 +3,8 @@ const { useRef } = React
 export function SendMessage({
   setSendMessage,
   setMssInfo,
-  sendMss,
-  mssInfo,
+  sendMss,mssInfo,
+  onExitMsg
 }) {
   function handleSubmit(event) {
     event.preventDefault()
@@ -24,7 +24,7 @@ export function SendMessage({
     >
       <div id="new-message-div">
         New Message
-        <button type="button" onClick={() => setSendMessage(false)}>
+        <button type="button" onClick={() => {setSendMessage(false),onExitMsg()}}>
           X
         </button>
       </div>

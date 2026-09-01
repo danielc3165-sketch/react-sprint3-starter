@@ -33,22 +33,22 @@ export function MailIndex({ mailsData }) {
     //console.log('sideBar',sideBar)
      
     useEffect(()=>{
-        console.log('cuurM',currMsg)
+  
         loadMail()
         setSearchParams(utilService.trimObj(filter))
-        //console.log('M',mails)
-     },[filter,currMsg])
+        console.log('filter',filter)
+     },[filter])
 
   //console.log('sideBar',sideBar)
 
 
-  function removeMail(id, ev) {
+function removeMail(id, ev) {
     ev.stopPropagation()
 
     mailService
       .remove(id)
       .then(() => setMails((prev) => prev.filter((mail) => mail.id !== id)))
-  }
+}
 
 function loadMail(){
     mailService.query(filter)
@@ -57,13 +57,13 @@ function loadMail(){
 })
 }
 
-  function changeIsRead(mail) {
+function changeIsRead(mail) {
     mail.isRead = true
     mailService.update(mail).then((newMail) => console.log('newMail', newMail))
     // .then(newMail=>setMails(prev=>prev.filter(filterMail=>filterMail.id!==newMail.id)))
-  }
+}
 
-  function sendMss() {
+function sendMss() {
     mailService
       .send(mssInfo,currMsg)
       .then(() => {
@@ -76,11 +76,11 @@ function loadMail(){
         showSuccessMsg('Your message sent')
         //console.log('newMss',newMss)
       })
-  }
+}
 
-  function onMenu() {
+function onMenu() {
     setIsClose(false)
-  }
+}
 
 function renderDate(mail){
     const timestamp = mail.sentAt || mail.createdAt
@@ -94,13 +94,12 @@ function renderDate(mail){
       day: 'numeric',
       year: 'numeric',
     })
- }
+}
 
 function renderStar(mail){
   if(mail.stared===true) return 'assets/icons/star-on.png'
   else  return 'assets/icons/star-off.png'
 }
-
 
 function changeIsStared(ev,mail){
   
@@ -115,9 +114,9 @@ function changeIsStared(ev,mail){
   mailService.update(mail)
   .then(()=>loadMail())
   .catch(()=>console.log('update star faild'))
- }
+}
 
- function onDelitMsg(ev,mail){
+function onDelitMsg(ev,mail){
    //console.log('ev,mail',ev,mail)
    ev.stopPropagation()
 
@@ -125,15 +124,34 @@ function changeIsStared(ev,mail){
   mailService.update(mail)
   .then(()=>loadMail())
   .catch(()=>console.log('update trash faild'))
- }
+}
 
- function onCompose(){
+function onCompose(){
     setCurrMsg(mailService.createMss())
- }
+}
+
+function onExitMsg(){
+       console.log('currMsg',currMsg)
+  mailService
+      .exitMsg(mssInfo,currMsg)
+      .then(() => {
+        loadMail()
+        setCurrMsg({})
+        setMssInfo({})
+        setSendMessage(false)
+      })
+      .catch(error=>console.log('draft doesnt save',error))
+}
+
+function updateInfo(mail){
+  setMssInfo({'adress':mail.to,'subject':mail.subject,'body':mail.body})
+  setCurrMsg(mail)
+}
 
 
 
  
+
 
      if(!mails) return
      //console.log('mails',mails)
@@ -144,7 +162,8 @@ function changeIsStared(ev,mail){
         setSendMessage={setSendMessage}
         mssInfo={mssInfo}
         setMssInfo={setMssInfo}
-        sendMss={sendMss}/>}
+        sendMss={sendMss}
+        onExitMsg={onExitMsg}/>}
          
      
     <div className="mail-index">
@@ -170,6 +189,8 @@ function changeIsStared(ev,mail){
         cmpType={cmpType}
         setMails={setMails} 
         removeMail={removeMail}
+        setSendMessage={setSendMessage}
+        updateInfo={updateInfo}
         renderDate={renderDate}
         renderStar={renderStar}
         changeIsStared={changeIsStared}

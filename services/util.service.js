@@ -80,6 +80,6 @@ function trimObj(obj) {
         if (obj[key]) trimmedObj[key] = obj[key]
     }
 
-    console.log('trimmedObj',trimmedObj)
+    //console.log('trimmedObj',trimmedObj)
     return trimmedObj
 }
