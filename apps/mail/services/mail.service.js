@@ -3,12 +3,9 @@ import { utilService } from "../../../services/util.service.js"
 import { storageService } from "../../../services/async-storage.service.js"
 import { MailList } from "../cmps/MailList.jsx"
 
-_initMails()
 
-function _initMails() {
-	const storedMails = utilService.loadFromStorage('mails')
-	if (!storedMails || storedMails.length === 0) {
-		const defaultMails = [
+
+		var defaultMails = [
 			{
 				id: 'e101',
 				createdAt: 1551133930500,
@@ -130,9 +127,8 @@ function _initMails() {
 				stared: false
 			}
 		]
-		utilService.saveToStorage('mails', defaultMails)
-	}
-}
+		
+
 
 export const mailService={
 	query,
@@ -153,6 +149,9 @@ function query(filter={}){
 	//console.log('Sfilter',filter)
 	return storageService.query(MAILS_KEY)
 	.then(mails=>{
+		
+		if(!mails||mails.length===0) mails = defaultMails
+
 		if(filter.txt){ 
 		const regExp=new RegExp(filter.txt,'i')
 		mails=mails.filter(mail=>regExp.test(mail.subject)||regExp.test(mail.body))
