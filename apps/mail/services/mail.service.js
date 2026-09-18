@@ -11,6 +11,7 @@ function _initMails() {
 		const defaultMails = [
 			{
 				id: 'e101',
+				
 				createdAt: 1551133930500,
 				subject: 'Miss you!',
 				body: 'Would love to catch up sometimes',
